@@ -78,18 +78,9 @@ app.get("/login", async (req, res) => {
 });
 
 // // app.get("/users/:username/profile", (req, res) => {
-// app.get("/users", (req, res) => {
-//   const headers = req.headers;
-//   const authHeader = req.headers["authorization"];
-//   if (authHeader) {
-//     let token = authHeader.split(" ");
-//     const decoded = jwt.verify(token, "SECRETKEY");
-//     console.log(decoded);
-//   }
-//   // const { username } = req.body;
-//   // const userProfile = .filter((account) => account.username == username);
-//   res.json("good");
-// });
+app.get("/users", authenticate, (req, res) => {
+  res.json("good");
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on Port ${PORT}`);
