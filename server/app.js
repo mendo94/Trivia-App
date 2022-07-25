@@ -5,6 +5,8 @@ const models = require("./models");
 const { Op } = require("sequelize");
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/config/config.js")[env];
+const authenticate = require("./authenticateMiddleware");
+const jwt = require("jsonwebtoken");
 const SALT_ROUNDS = 10;
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
@@ -25,7 +27,7 @@ app.post("/registration", async (req, res) => {
       username: username,
     },
   });
-  if (persistedUser == null) {
+  if (persistedUser) {
     const hash = await bcrypt.hash(password, SALT_ROUNDS);
     const user = models.User.build({
       first_name: first_name,
@@ -56,10 +58,17 @@ app.post("/login", async (req, res) => {
       username: username,
     },
   });
-  if (user != null) {
-    bcrypt.compare(password, user.password, (result) => {
-      res.json({ success: true, userId: user.id });
+  if (user) {
+    bcrypt.compare(password, user.password, (err, result) => {
+      if (result) {
+        const token = jwt.sign({ username: user.username }, "SECRETKEY");
+        res.json({ success: true, token: token });
+      } else {
+        res.json({ success: false, message: "User is not authenticated." });
+      }
     });
+  } else {
+    res.json({ success: false, message: "Authentication failed." });
   }
 });
 
@@ -68,9 +77,10 @@ app.get("/login", async (req, res) => {
   res.json(users);
 });
 
-// app.post("/login", (req, res) => {
-//   const { username, password } = req.body;
-// });
+// // app.get("/users/:username/profile", (req, res) => {
+app.get("/users", authenticate, (req, res) => {
+  res.json("good");
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on Port ${PORT}`);
