@@ -5,7 +5,7 @@ const models = require("./models");
 const { Op } = require("sequelize");
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/config/config.js")[env];
-// const authenticate = require("./authenticateMiddleware");
+const authenticate = require("./authenticateMiddleware");
 const jwt = require("jsonwebtoken");
 const SALT_ROUNDS = 10;
 const cors = require("cors");
@@ -77,15 +77,18 @@ app.get("/login", async (req, res) => {
   res.json(users);
 });
 
-app.get("/profile", (req, res) => {
-  const headers = req.headers;
-  console.log(headers);
-  const { username } = req.body;
-  const userProfile = profile.filter((account) => account.username == username);
-  res.json();
-});
-// app.post("/login", (req, res) => {
-//   const { username, password } = req.body;
+// // app.get("/users/:username/profile", (req, res) => {
+// app.get("/users", (req, res) => {
+//   const headers = req.headers;
+//   const authHeader = req.headers["authorization"];
+//   if (authHeader) {
+//     let token = authHeader.split(" ");
+//     const decoded = jwt.verify(token, "SECRETKEY");
+//     console.log(decoded);
+//   }
+//   // const { username } = req.body;
+//   // const userProfile = .filter((account) => account.username == username);
+//   res.json("good");
 // });
 
 app.listen(PORT, () => {
