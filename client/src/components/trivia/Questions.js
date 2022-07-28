@@ -4,6 +4,22 @@ import { connect } from "react-redux";
 import "./Question.css";
 
 function Questions(props) {
+  const getTriviaQuestion = () => {
+    fetch("https://the-trivia-api.com/api/questions?limit=1", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((question) => {
+        if (question) {
+          console.log(question);
+          props.onQuestionLoaded(question);
+        }
+      });
+  };
+
   function shuffle(array) {
     var currentIndex = array.length,
       temporaryValue,
@@ -85,22 +101,6 @@ function Questions(props) {
       </div>
     );
   });
-
-  const getTriviaQuestion = () => {
-    fetch("https://the-trivia-api.com/api/questions?limit=1", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((question) => {
-        if (question) {
-          console.log(question);
-          props.onQuestionLoaded(question);
-        }
-      });
-  };
 
   return (
     <>
