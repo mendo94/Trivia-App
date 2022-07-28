@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 2000;
 const models = require("./models");
 const { Op } = require("sequelize");
 const env = process.env.NODE_ENV || "development";
@@ -14,11 +14,6 @@ const bcrypt = require("bcryptjs");
 app.use(cors());
 app.use(express.json());
 
-// const users = [
-//   { username: "johndoe", password: 1234 },
-//   { username: "janedoe", password: 1234 },
-// ];
-
 app.post("/registration", async (req, res) => {
   const { username, password, first_name, last_name } = req.body;
 
@@ -27,7 +22,7 @@ app.post("/registration", async (req, res) => {
       username: username,
     },
   });
-  if (persistedUser) {
+  if (persistedUser == null) {
     const hash = await bcrypt.hash(password, SALT_ROUNDS);
     const user = models.User.build({
       first_name: first_name,
@@ -45,11 +40,6 @@ app.get("/registration", async (req, res) => {
   res.json(users);
 });
 
-app.get("/registration", async (req, res) => {
-  const users = await models.User.findAll();
-  res.json(users);
-});
-
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -60,9 +50,13 @@ app.post("/login", async (req, res) => {
   });
   if (user) {
     bcrypt.compare(password, user.password, (err, result) => {
+      console.log(result);
       if (result) {
-        const token = jwt.sign({ username: user.username }, "SECRETKEY");
-        res.json({ success: true, token: token });
+        const token = jwt.sign(
+          { username: user.username },
+          process.env.JWT_SECRET_KEY
+        );
+        res.json({ success: true, token: token, username: user.username });
       } else {
         res.json({ success: false, message: "User is not authenticated." });
       }
@@ -77,9 +71,17 @@ app.get("/login", async (req, res) => {
   res.json(users);
 });
 
-// // app.get("/users/:username/profile", (req, res) => {
-app.get("/users", authenticate, (req, res) => {
+app.get("/homepage", authenticate, (req, res) => {
   res.json("good");
+});
+
+app.get("/:username/main", authenticate, (req, res) => {
+  const { username } = req.params;
+  //the client needs to pass in the token and the server validates the token
+  res.json([
+    { question: "what is japans capital" },
+    { questions: "what is united states capital?" },
+  ]);
 });
 
 app.listen(PORT, () => {
