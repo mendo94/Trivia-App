@@ -11,8 +11,7 @@ function Login() {
   };
 
   const handleLogin = () => {
-    //
-    fetch("http://localhost:8000/login", {
+    fetch("http://localhost:2000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

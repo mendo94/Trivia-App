@@ -5,7 +5,7 @@ function authenticate(req, res, next) {
   const headers = req.headers["authorization"];
   if (headers) {
     const token = headers.split(" ")[1];
-    jwt.verify(token, "SECRETKEY", function (err, decoded) {
+    jwt.verify(token, process.env.JWT_SECRET_KEY, function (err, decoded) {
       if (err) {
         res.json({ success: false, message: "Unable to authenticate!" });
       } else {
