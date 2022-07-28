@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as actionCreators from "../../store/creators/actionCreators";
 import { connect } from "react-redux";
+import "./Question.css";
 
 function Questions(props) {
   function shuffle(array) {
@@ -27,31 +28,60 @@ function Questions(props) {
       trivia.correctAnswer,
     ]);
 
-    const handleChoice = () => {
+    const handleChoice1 = () => {
       if (shuffledAnswers[0] !== trivia.correctAnswer) {
-        console.log("wrong!!!!!");
+        console.log("wrong");
       } else {
-        console.log("correct");
+        console.log("correct!!");
       }
     };
 
-    console.log(shuffledAnswers);
+    const handleChoice2 = () => {
+      if (shuffledAnswers[1] !== trivia.correctAnswer) {
+        console.log("wrong");
+      } else {
+        console.log("correct!!");
+      }
+    };
+
+    const handleChoice3 = () => {
+      if (shuffledAnswers[2] !== trivia.correctAnswer) {
+        console.log("wrong");
+      } else {
+        console.log("correct!!");
+      }
+    };
+
+    const handleChoice4 = () => {
+      if (shuffledAnswers[3] !== trivia.correctAnswer) {
+        console.log("wrong");
+      } else {
+        console.log("correct!!");
+      }
+    };
+
     return (
-      <div>
-        <h2 key={trivia.id}>{trivia.category}</h2>
+      <div className="trivia-container">
         <h4>{trivia.question}</h4>
-        <button onClick={handleChoice}>
-          <li>{shuffledAnswers[0]}</li>
-        </button>
-        <button onClick={handleChoice}>
-          <li>{shuffledAnswers[1]}</li>
-        </button>
-        <button onClick={handleChoice}>
-          <li>{shuffledAnswers[2]}</li>
-        </button>
-        <button onClick={handleChoice}>
-          <li>{shuffledAnswers[3]}</li>
-        </button>
+        <div className="answer-container">
+          <button onClick={handleChoice1}>
+            <li>A. {shuffledAnswers[0]}</li>
+          </button>
+          <button onClick={handleChoice2}>
+            <li>B. {shuffledAnswers[1]}</li>
+          </button>
+          <button onClick={handleChoice3}>
+            <li>C. {shuffledAnswers[2]}</li>
+          </button>
+          <button onClick={handleChoice4}>
+            <li>D. {shuffledAnswers[3]}</li>
+          </button>
+        </div>
+        <div className="category-container">
+          <h2 className="category" key={trivia.id}>
+            Category: {trivia.category}
+          </h2>
+        </div>
       </div>
     );
   });
@@ -75,7 +105,6 @@ function Questions(props) {
   return (
     <>
       <button onClick={() => getTriviaQuestion()}>Start</button>
-      {/* <button onClick={() => getAllAnswers()}>answer</button> */}
       <ul>{triviaItems}</ul>
     </>
   );
