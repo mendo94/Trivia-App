@@ -34,3 +34,10 @@ export const getQuestion = (question) => {
     payload: question,
   };
 };
+
+export const getRankings = (rankings) => {
+  return {
+    type: actionTypes.GET_RANKINGS,
+    payload: rankings,
+  };
+};

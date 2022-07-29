@@ -1,0 +1,27 @@
+table,
+th,
+td,
+tr {
+  border: 1px solid white;
+}
+
+table {
+  width: 100%;
+}
+
+.ranking-heading {
+  text-align: center;
+}
+
+.ranking-container {
+  margin-top: 2rem;
+}
+
+th {
+  font-size: larger;
+  border: 1px solid white;
+}
+
+td {
+  border: 1px solid white !important;
+}
