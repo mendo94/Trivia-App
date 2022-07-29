@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 function Registration() {
   const [user, setUser] = useState({});
-  let navigate = useNavigate();
+  let Navigate = useNavigate();
 
   const handleTextChange = (e) => {
     setUser({
@@ -23,7 +23,7 @@ function Registration() {
       .then((response) => response.json())
       .then((result) => {
         if (result.success) {
-          navigate("/login");
+          Navigate("/login");
         }
       });
   };
@@ -31,11 +31,19 @@ function Registration() {
   return (
     <div>
       <h1>Register for an Account</h1>
-      <label htmlFor="username">Create username: </label>
+      <label htmlFor="first_name">Enter First Name: </label>
+      <input type="text" name="first_name" onChange={handleTextChange} />
+      <br />
+      <br />
+      <label htmlFor="last_name">Enter Last Name: </label>
+      <input type="text" name="last_name" onChange={handleTextChange} />
+      <br />
+      <br />
+      <label htmlFor="username">Create Username: </label>
       <input type="text" name="username" onChange={handleTextChange} />
       <br />
       <br />
-      <label htmlFor="password">Create password: </label>
+      <label htmlFor="password">Create Password: </label>
       <input type="password" name="password" onChange={handleTextChange} />
       <br></br>
       <br></br>

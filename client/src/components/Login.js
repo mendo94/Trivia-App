@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [user, setUser] = useState({});
+  const Navigate = useNavigate();
 
   const handleTextChange = (e) => {
     setUser({
@@ -25,6 +27,7 @@ function Login() {
           // token is saved to local storage
           const token = result.token;
           localStorage.setItem("jsonwebtoken", token);
+          Navigate("/homepage");
         } else {
           alert(!result.success);
         }
