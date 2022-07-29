@@ -76,7 +76,7 @@ app.get("/homepage", authenticate, (req, res) => {
 });
 
 app.post("/rankings", async (req, res) => {
-  const { points, userId } = parseInt(req.body);
+  const { points, userId } = req.body;
   try {
     const addPoints = await models.Score.build({
       points: points,
@@ -93,7 +93,9 @@ app.post("/rankings", async (req, res) => {
 });
 
 app.get("/rankings", async (req, res) => {
-  const score = await models.Score.findAll();
+  const score = await models.User.findAll({
+    include: [{ model: models.Score, as: "points" }],
+  });
   res.json(score);
 });
 
