@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actionCreators from "../store/creators/actionCreators";
 
 function Login() {
   const [user, setUser] = useState({});
@@ -54,4 +56,11 @@ function Login() {
   );
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoadUser: (userId) => dispatch(actionCreators.loadUser(userId)),
+    onLogin: (token) => dispatch(actionCreators.loadAuth(token)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Login);
