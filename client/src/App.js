@@ -1,4 +1,4 @@
-import Soundify from "./components/Soundify";
+import Soundify from "./components/music/Soundify";
 
 function App() {
   return (
