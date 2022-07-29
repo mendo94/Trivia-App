@@ -53,7 +53,7 @@ app.post("/login", async (req, res) => {
       console.log(result);
       if (result) {
         const token = jwt.sign(
-          { username: user.username },
+          { userId: user.id, username: user.username },
           process.env.JWT_SECRET_KEY
         );
         res.json({ success: true, token: token, username: user.username });
@@ -73,6 +73,28 @@ app.get("/login", async (req, res) => {
 
 app.get("/homepage", authenticate, (req, res) => {
   res.json("good");
+});
+
+app.post("/rankings", async (req, res) => {
+  const { points, userId } = parseInt(req.body);
+  try {
+    const addPoints = await models.Score.build({
+      points: points,
+      userId: userId,
+    });
+    const _ = await addPoints.save();
+    res.json({ success: true, message: "points have been added." });
+  } catch {
+    res.json({
+      success: false,
+      message: "Points could not be added at this time.",
+    });
+  }
+});
+
+app.get("/rankings", async (req, res) => {
+  const score = await models.Score.findAll();
+  res.json(score);
 });
 
 app.get("/:username/main", authenticate, (req, res) => {

@@ -13,6 +13,7 @@ import App from "./App";
 import Registration from "./components/Registration";
 import Login from "./components/Login";
 import Trivia from "./components/trivia/Trivia";
+import Rankings from "./components/rankings/Rankings";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import * as actionCreators from "./store/creators/actionCreators";
@@ -45,6 +46,7 @@ root.render(
             <Route path="/registration" element={<Registration />} />
             <Route path="/login" element={<Login />} />
             <Route path="/trivia" element={<Trivia />} />
+            <Route path="/rankings" element={<Rankings />} />
           </Routes>
         </BaseLayout>
       </BrowserRouter>
