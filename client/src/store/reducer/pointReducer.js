@@ -9,7 +9,12 @@ const pointReducer = (state = initialState, action) => {
     case actionTypes.ADD_POINTS:
       return {
         ...state,
-        points: action.payload,
+        points: action.payload + 10,
+      };
+    case actionTypes.SUBTRACT_POINTS:
+      return {
+        ...state,
+        points: action.payload - 10,
       };
     default:
       return state;

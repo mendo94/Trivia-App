@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import "./Question.css";
 
 function Questions(props) {
+  const points = props.points;
+
   const getTriviaQuestion = () => {
     fetch("https://the-trivia-api.com/api/questions?limit=1", {
       method: "GET",
@@ -47,7 +49,9 @@ function Questions(props) {
     const handleChoice1 = () => {
       if (shuffledAnswers[0] !== trivia.correctAnswer) {
         console.log("wrong");
+        props.onSubtractPoints(points);
       } else {
+        props.onAddPoints(points);
         console.log("correct!!");
       }
     };
@@ -55,7 +59,9 @@ function Questions(props) {
     const handleChoice2 = () => {
       if (shuffledAnswers[1] !== trivia.correctAnswer) {
         console.log("wrong");
+        props.onSubtractPoints(points);
       } else {
+        props.onAddPoints(points);
         console.log("correct!!");
       }
     };
@@ -63,7 +69,9 @@ function Questions(props) {
     const handleChoice3 = () => {
       if (shuffledAnswers[2] !== trivia.correctAnswer) {
         console.log("wrong");
+        props.onSubtractPoints(points);
       } else {
+        props.onAddPoints(points);
         console.log("correct!!");
       }
     };
@@ -71,14 +79,16 @@ function Questions(props) {
     const handleChoice4 = () => {
       if (shuffledAnswers[3] !== trivia.correctAnswer) {
         console.log("wrong");
+        props.onSubtractPoints(points);
       } else {
+        props.onAddPoints(points);
         console.log("correct!!");
       }
     };
 
     return (
       <div className="trivia-container">
-        <h4>{trivia.question}</h4>
+        <h4 key={trivia.id}>{trivia.question}</h4>
         <div className="answer-container">
           <button onClick={handleChoice1}>
             <li>A. {shuffledAnswers[0]}</li>
@@ -113,6 +123,7 @@ function Questions(props) {
 const mapStateToProps = (state) => {
   return {
     question: state.questionReducer.question,
+    points: state.pointReducer.points,
   };
 };
 
@@ -120,6 +131,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onQuestionLoaded: (question) =>
       dispatch(actionCreators.getQuestion(question)),
+    onSubtractPoints: (points) =>
+      dispatch(actionCreators.subtractPoints(points)),
+    onAddPoints: (points) => dispatch(actionCreators.addPoints(points)),
   };
 };
 

@@ -21,6 +21,13 @@ export const addPoints = (points) => {
   };
 };
 
+export const subtractPoints = (points) => {
+  return {
+    type: actionTypes.SUBTRACT_POINTS,
+    payload: points,
+  };
+};
+
 export const getQuestion = (question) => {
   return {
     type: actionTypes.GET_QUESTION,
