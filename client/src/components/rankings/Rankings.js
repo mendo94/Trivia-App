@@ -5,11 +5,9 @@ import "./Ranking.css";
 
 function Rankings(props) {
   const rankings = props.rankings;
-  const [sortedScores, setSortedScores] = useState([]);
 
   useEffect(() => {
     getRankings();
-    sortScores();
   }, []);
 
   const getRankings = () => {
@@ -21,30 +19,22 @@ function Rankings(props) {
     })
       .then((response) => response.json())
       .then((rankings) => {
-        if (rankings) {
-          props.getRankings(rankings);
-        }
-      });
-    props.getRankings(rankings);
-  };
+        rankings.sort((a, b) =>
+          a.points[0].points > b.points[0].points ? -1 : 1
+        );
 
-  const sortScores = () => {
-    rankings
-      .sort((a, b) => (a.points[0].points > b.points[0].points ? -1 : 1))
-      .forEach((ranking, index) => {
-        setSortedScores(ranking);
-        console.log(ranking);
+        props.getRankings(rankings);
       });
   };
 
-  const rankingItems = sortedScores.map((ranking) => {
+  const rankingItems = rankings.map((ranking) => {
     return (
       <>
         <tr>
-          <td>
+          <td key={ranking.id}>
             {ranking.first_name} {ranking.last_name}
           </td>
-          <td>{ranking.username} </td>
+          <td>{ranking.username}</td>
           <td> {ranking.points[0].points}</td>
         </tr>
       </>
@@ -55,12 +45,14 @@ function Rankings(props) {
     <div className="ranking-container">
       <h1 className="ranking-heading">Rankings</h1>
       <table>
-        <tr>
-          <th>Name</th>
-          <th>Username</th>
-          <th>Score</th>
-        </tr>
-        {rankingItems}
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Score</th>
+          </tr>
+          {rankingItems}
+        </tbody>
       </table>
     </div>
   );
