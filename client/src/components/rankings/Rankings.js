@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as actionCreators from "../../store/creators/actionCreators";
 import { connect } from "react-redux";
 import "./Ranking.css";
@@ -19,21 +19,22 @@ function Rankings(props) {
     })
       .then((response) => response.json())
       .then((rankings) => {
-        if (rankings) {
-          console.log(rankings);
-          props.getRankings(rankings);
-        }
+        rankings.sort((a, b) =>
+          a.points[0].points > b.points[0].points ? -1 : 1
+        );
+
+        props.getRankings(rankings);
       });
-    props.getRankings(rankings);
   };
+
   const rankingItems = rankings.map((ranking) => {
     return (
       <>
         <tr>
-          <td>
+          <td key={ranking.id}>
             {ranking.first_name} {ranking.last_name}
           </td>
-          <td>{ranking.username} </td>
+          <td>{ranking.username}</td>
           <td> {ranking.points[0].points}</td>
         </tr>
       </>
@@ -44,12 +45,14 @@ function Rankings(props) {
     <div className="ranking-container">
       <h1 className="ranking-heading">Rankings</h1>
       <table>
-        <tr>
-          <th>Name</th>
-          <th>Username</th>
-          <th>Score</th>
-        </tr>
-        {rankingItems}
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Score</th>
+          </tr>
+          {rankingItems}
+        </tbody>
       </table>
     </div>
   );
