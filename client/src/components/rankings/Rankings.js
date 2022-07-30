@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as actionCreators from "../../store/creators/actionCreators";
 import { connect } from "react-redux";
 import "./Ranking.css";
 
 function Rankings(props) {
   const rankings = props.rankings;
+  const [sortedScores, setSortedScores] = useState([]);
 
   useEffect(() => {
     getRankings();
+    sortScores();
   }, []);
 
   const getRankings = () => {
@@ -20,13 +22,22 @@ function Rankings(props) {
       .then((response) => response.json())
       .then((rankings) => {
         if (rankings) {
-          console.log(rankings);
           props.getRankings(rankings);
         }
       });
     props.getRankings(rankings);
   };
-  const rankingItems = rankings.map((ranking) => {
+
+  const sortScores = () => {
+    rankings
+      .sort((a, b) => (a.points[0].points > b.points[0].points ? -1 : 1))
+      .forEach((ranking, index) => {
+        setSortedScores(ranking);
+        console.log(ranking);
+      });
+  };
+
+  const rankingItems = sortedScores.map((ranking) => {
     return (
       <>
         <tr>

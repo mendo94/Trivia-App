@@ -2,7 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   points: 0,
-  rankings: []
+  rankings: [],
 };
 
 const pointReducer = (state = initialState, action) => {
