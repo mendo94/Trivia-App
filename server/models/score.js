@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       points: DataTypes.INTEGER,
       userId: DataTypes.INTEGER,
+      rank: DataTypes.STRING,
     },
     {
       sequelize,
