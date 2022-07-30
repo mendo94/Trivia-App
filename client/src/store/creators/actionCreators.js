@@ -41,3 +41,10 @@ export const getRankings = (rankings) => {
     payload: rankings,
   };
 };
+
+export const getRank = (rank) => {
+  return {
+    type: actionTypes.RANK,
+    payload: rank,
+  };
+};

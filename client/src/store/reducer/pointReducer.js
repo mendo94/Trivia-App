@@ -3,6 +3,7 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   points: 0,
   rankings: [],
+  rank: [],
 };
 
 const pointReducer = (state = initialState, action) => {
@@ -21,6 +22,11 @@ const pointReducer = (state = initialState, action) => {
       return {
         ...state,
         rankings: action.payload,
+      };
+    case actionTypes.RANK:
+      return {
+        ...state,
+        rank: action.payload,
       };
 
     default:

@@ -4,3 +4,4 @@ export const ADD_POINTS = "ADD_POINTS";
 export const SUBTRACT_POINTS = "SUBTRACT_POINTS";
 export const GET_QUESTION = "GET_QUESTION";
 export const GET_RANKINGS = "GET_RANKINGS";
+export const RANK = "RANK";
