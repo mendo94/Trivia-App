@@ -13,7 +13,7 @@ function Trivia() {
 
   return (
     <>
-      {loading ? (
+      {/* {loading ? (
         <LoadingScreen />
       ) : (
         <div>
@@ -21,7 +21,12 @@ function Trivia() {
           <Timer />
           <Questions />
         </div>
-      )}
+      )} */}
+      <div>
+        <Score />
+        <Timer />
+        <Questions />
+      </div>
     </>
   );
 }
