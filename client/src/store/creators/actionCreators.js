@@ -41,10 +41,3 @@ export const getRankings = (rankings) => {
     payload: rankings,
   };
 };
-
-export const getSortedRankings = (sortedRankings) => {
-  return {
-    type: actionTypes.GET_SORTED_RANKINGS,
-    payload: sortedRankings,
-  };
-};

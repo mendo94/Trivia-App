@@ -22,7 +22,6 @@ function Rankings(props) {
         rankings.sort((a, b) =>
           a.points[0].points > b.points[0].points ? -1 : 1
         );
-
         props.getRankings(rankings);
       });
   };

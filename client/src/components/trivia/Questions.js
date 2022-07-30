@@ -90,16 +90,16 @@ function Questions(props) {
       <div className="trivia-container">
         <h4 key={trivia.id}>{trivia.question}</h4>
         <div className="answer-container">
-          <button onClick={handleChoice1}>
+          <button className="trivia-btn" onClick={handleChoice1}>
             <li>A. {shuffledAnswers[0]}</li>
           </button>
-          <button onClick={handleChoice2}>
+          <button className="trivia-btn" onClick={handleChoice2}>
             <li>B. {shuffledAnswers[1]}</li>
           </button>
-          <button onClick={handleChoice3}>
+          <button className="trivia-btn" onClick={handleChoice3}>
             <li>C. {shuffledAnswers[2]}</li>
           </button>
-          <button onClick={handleChoice4}>
+          <button className="trivia-btn" onClick={handleChoice4}>
             <li>D. {shuffledAnswers[3]}</li>
           </button>
         </div>
