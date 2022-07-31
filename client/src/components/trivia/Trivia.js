@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Timer from "./Timer";
 import Questions from "./Questions";
+import TitleRanks from "../rankings/TitleRanks";
 import LoadingScreen from "../loader/LoadingScreen";
 import Score from "./Score";
 
@@ -26,6 +27,7 @@ function Trivia() {
         <Score />
         <Timer />
         <Questions />
+        <TitleRanks />
       </div>
     </>
   );

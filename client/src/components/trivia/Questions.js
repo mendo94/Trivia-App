@@ -5,6 +5,10 @@ import "./Question.css";
 
 function Questions(props) {
   const points = props.points;
+  const isAuthenticated = props.isAuthenticated;
+  const userId = props.userId;
+  const rank = props.rank;
+  const token = localStorage.getItem("jsonwebtoken");
 
   const getTriviaQuestion = () => {
     fetch("https://the-trivia-api.com/api/questions?limit=1", {
@@ -124,6 +128,9 @@ const mapStateToProps = (state) => {
   return {
     question: state.questionReducer.question,
     points: state.pointReducer.points,
+    userId: state.userReducer.userId,
+    isAuthenticated: state.userReducer.isAuthenticated,
+    rank: state.pointReducer.rank,
   };
 };
 
@@ -134,6 +141,7 @@ const mapDispatchToProps = (dispatch) => {
     onSubtractPoints: (points) =>
       dispatch(actionCreators.subtractPoints(points)),
     onAddPoints: (points) => dispatch(actionCreators.addPoints(points)),
+    onRankLoaded: (rank) => dispatch(actionCreators.getRank(rank)),
   };
 };
 

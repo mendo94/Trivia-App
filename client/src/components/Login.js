@@ -28,7 +28,10 @@ function Login() {
         if (result.success) {
           // token is saved to local storage
           const token = result.token;
+          const username = result.username;
           localStorage.setItem("jsonwebtoken", token);
+          localStorage.setItem("username", username);
+
           Navigate("/homepage");
         } else {
           alert(!result.success);

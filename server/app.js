@@ -76,10 +76,11 @@ app.get("/homepage", authenticate, (req, res) => {
 });
 
 app.post("/rankings", async (req, res) => {
-  const { points, userId } = req.body;
+  const { points, userId, rank } = req.body;
   try {
     const addPoints = await models.Score.build({
       points: points,
+      rank: rank,
       userId: userId,
     });
     const _ = await addPoints.save();
