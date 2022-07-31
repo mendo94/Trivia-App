@@ -28,6 +28,13 @@ export const subtractPoints = (points) => {
   };
 };
 
+export const calcPoints = (points) => {
+  return {
+    type: actionTypes.CALC_POINTS,
+    payload: points,
+  };
+};
+
 export const getQuestion = (question) => {
   return {
     type: actionTypes.GET_QUESTION,
@@ -39,5 +46,12 @@ export const getRankings = (rankings) => {
   return {
     type: actionTypes.GET_RANKINGS,
     payload: rankings,
+  };
+};
+
+export const getRank = (rank) => {
+  return {
+    type: actionTypes.RANK,
+    payload: rank,
   };
 };

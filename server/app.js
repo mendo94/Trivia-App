@@ -56,7 +56,12 @@ app.post("/login", async (req, res) => {
           { userId: user.id, username: user.username },
           process.env.JWT_SECRET_KEY
         );
-        res.json({ success: true, token: token, username: user.username });
+        res.json({
+          success: true,
+          token: token,
+          username: user.username,
+          userId: user.id,
+        });
       } else {
         res.json({ success: false, message: "User is not authenticated." });
       }
@@ -74,15 +79,36 @@ app.get("/login", async (req, res) => {
 app.get("/homepage", authenticate, (req, res) => {
   res.json("good");
 });
+// app.put("/rankings/:userId", (req, res) => {
+//   models.Score.update(
+//     { rank: req.body.rank },
+//     { points: req.body.points },
+//     { where: req.params.userId }
+//   )
+//     .then(function (rowsUpdated) {
+//       res.json(rowsUpdated);
+//     })
+//     .catch(
+//       res.json({ success: false, message: "Score could not be updated." })
+//     );
+// });
+app.post("/rankings/:userId", async (req, res) => {
+  const { points, rank } = req.body;
+  const { userId } = req.params;
 
-app.post("/rankings", async (req, res) => {
-  const { points, userId } = req.body;
   try {
-    const addPoints = await models.Score.build({
-      points: points,
-      userId: userId,
-    });
-    const _ = await addPoints.save();
+    const addPoints = await models.Score.update(
+      {
+        points: points,
+        rank: rank,
+      },
+      {
+        where: {
+          userId: userId,
+        },
+      }
+    );
+
     res.json({ success: true, message: "points have been added." });
   } catch {
     res.json({

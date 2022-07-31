@@ -4,7 +4,8 @@ import * as actionCreators from "../../store/creators/actionCreators";
 import { connect } from "react-redux";
 
 function Score(props) {
-  return <div>Score: {props.points}</div>;
+  const points = props.points;
+  return <div>Score: {points}</div>;
 }
 
 const mapStateToProps = (state) => {
@@ -13,4 +14,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Score);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    calcPoints: (points) => dispatch(actionCreators.calcPoints(points)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Score);

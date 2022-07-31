@@ -27,14 +27,14 @@ function Rankings(props) {
   };
 
   const rankingItems = rankings.map((ranking) => {
+    console.log(ranking);
     return (
       <>
         <tr>
-          <td key={ranking.id}>
-            {ranking.first_name} {ranking.last_name}
-          </td>
+          <td key={ranking.id}>{ranking.first_name}</td>
           <td>{ranking.username}</td>
           <td> {ranking.points[0].points}</td>
+          <td> {ranking.points[0].rank}</td>
         </tr>
       </>
     );
@@ -49,6 +49,7 @@ function Rankings(props) {
             <th>Name</th>
             <th>Username</th>
             <th>Score</th>
+            <th>Rank</th>
           </tr>
           {rankingItems}
         </tbody>

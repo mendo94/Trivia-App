@@ -43,6 +43,7 @@ root.render(
         <BaseLayout>
           <Routes>
             <Route path="/homepage" element={<App />} />
+            <Route path="/" element={<App />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/login" element={<Login />} />
             <Route path="/trivia" element={<Trivia />} />
