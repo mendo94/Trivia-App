@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
-import * as actionCreators from "../store/creators/actionCreators";
+import * as actionCreators from "../../store/creators/actionCreators";
 
 function Login(props) {
   const [user, setUser] = useState({});

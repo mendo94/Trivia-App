@@ -10,8 +10,8 @@ import thunk from "redux-thunk";
 
 import BaseLayout from "./components/baselayout/BaseLayout";
 import App from "./App";
-import Registration from "./components/Registration";
-import Login from "./components/Login";
+import Registration from "./components/userCredentials/Registration";
+import Login from "./components/userCredentials/Login";
 import Trivia from "./components/trivia/Trivia";
 import Rankings from "./components/rankings/Rankings";
 import "bootstrap/dist/css/bootstrap.min.css";
