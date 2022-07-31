@@ -59,9 +59,10 @@ function TitleRanks(props) {
     const response = await addRank.json();
     if (response.success && token) {
       getUserRank();
-
+      console.log(rank);
+      console.log(points);
       props.calcPoints(points);
-      props.onRankLoaded(rank);
+      //   props.onRankLoaded(rank);
       Navigate("/rankings");
     } else {
       alert("You must be logged in!");

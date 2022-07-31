@@ -79,19 +79,7 @@ app.get("/login", async (req, res) => {
 app.get("/homepage", authenticate, (req, res) => {
   res.json("good");
 });
-// app.put("/rankings/:userId", (req, res) => {
-//   models.Score.update(
-//     { rank: req.body.rank },
-//     { points: req.body.points },
-//     { where: req.params.userId }
-//   )
-//     .then(function (rowsUpdated) {
-//       res.json(rowsUpdated);
-//     })
-//     .catch(
-//       res.json({ success: false, message: "Score could not be updated." })
-//     );
-// });
+
 app.post("/rankings/:userId", async (req, res) => {
   const { points, rank } = req.body;
   const { userId } = req.params;
@@ -125,13 +113,22 @@ app.get("/rankings", async (req, res) => {
   res.json(score);
 });
 
-app.get("/:username/main", authenticate, (req, res) => {
-  const { username } = req.params;
-  //the client needs to pass in the token and the server validates the token
-  res.json([
-    { question: "what is japans capital" },
-    { questions: "what is united states capital?" },
-  ]);
+app.get("/rankings/:userId", authenticate, async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const score = await models.Score.findAll({
+      where: {
+        userId: userId,
+      },
+    });
+    res.json(score);
+  } catch {
+    res.json({
+      success: false,
+      message: "You must be logged in to save your score.",
+    });
+  }
 });
 
 app.listen(PORT, () => {
