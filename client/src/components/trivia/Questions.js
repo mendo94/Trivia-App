@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as actionCreators from "../../store/creators/actionCreators";
-import { connect } from "react-redux";
+import { connect, useStore } from "react-redux";
 import "./Question.css";
 
 function Questions(props) {

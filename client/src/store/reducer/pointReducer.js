@@ -18,6 +18,11 @@ const pointReducer = (state = initialState, action) => {
         ...state,
         points: action.payload - 10,
       };
+    case actionTypes.CALC_POINTS:
+      return {
+        ...state,
+        points: action.payload,
+      };
     case actionTypes.GET_RANKINGS:
       return {
         ...state,
