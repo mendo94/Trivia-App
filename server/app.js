@@ -113,7 +113,7 @@ app.get("/rankings", async (req, res) => {
   res.json(score);
 });
 
-app.get("/rankings/:userId", authenticate, async (req, res) => {
+app.get("/trivia/:userId", authenticate, async (req, res) => {
   const { userId } = req.params;
 
   try {

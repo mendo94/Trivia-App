@@ -3,14 +3,17 @@ import Timer from "./Timer";
 import Questions from "./Questions";
 import TitleRanks from "../rankings/TitleRanks";
 import LoadingScreen from "../loader/LoadingScreen";
+import { connect } from "react-redux";
 import Score from "./Score";
 
-function Trivia() {
+function Trivia(props) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 5000);
   }, []);
+
+  console.log(props.isAuthenticated);
 
   return (
     <>
@@ -24,7 +27,7 @@ function Trivia() {
         </div>
       )} */}
       <div>
-        <Score />
+        {props.isAuthenticated ? <Score /> : null}
         <Timer />
         <Questions />
         <TitleRanks />
@@ -32,5 +35,10 @@ function Trivia() {
     </>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.userReducer.isAuthenticated,
+  };
+};
 
-export default Trivia;
+export default connect(mapStateToProps)(Trivia);

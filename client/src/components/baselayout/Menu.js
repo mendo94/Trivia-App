@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 
 import * as actionCreators from "../../store/creators/actionCreators";
@@ -122,11 +123,13 @@ const ItemLink = styled(NavLink)`
 function HamburgerMenu(props) {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
+  let Navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("jsonwebtoken");
     localStorage.removeItem("username");
     localStorage.removeItem("userId");
     props.onLogOut();
+    // Navigate("/login");
   };
   return (
     <>
@@ -158,7 +161,7 @@ function HamburgerMenu(props) {
             </ItemLink>
           </li>
           <li>
-            <ItemLink onClick={handleLogout} to="/login">
+            <ItemLink onClick={(handleLogout, handleClick)} to="/login">
               Bid Thee Farewell
             </ItemLink>
           </li>

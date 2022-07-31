@@ -34,7 +34,7 @@ function Login(props) {
           localStorage.setItem("username", username);
           localStorage.setItem("userId", userId);
           props.onLoadUser(userId);
-          props.onLogin(token);
+          props.onLogin(true);
 
           Navigate("/homepage");
         } else {

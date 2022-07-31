@@ -23,7 +23,8 @@ function Questions(props) {
           console.log(question);
           props.onQuestionLoaded(question);
         }
-      });
+      })
+      .catch((error) => console.log(error));
   };
 
   function shuffle(array) {

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import * as actionCreators from "../../store/creators/actionCreators";
-
 import { connect } from "react-redux";
 
 function Score(props) {
@@ -14,30 +13,48 @@ function Score(props) {
     const token = localStorage.getItem("jsonwebtoken");
     const userId = localStorage.getItem("userId");
     console.log(userId);
-    if (token && userId) {
-      fetch(`http://localhost:2000/rankings/${userId}`, {
+    if (token && userId && props.isAuthenticated) {
+      fetch(`http://localhost:2000/trivia/${userId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
         .then((response) => response.json())
-        .then((result) => {
-          if (result) {
-            console.log(result);
-            props.calcPoints(result);
+        .then((points) => {
+          if (points) {
+            props.calcPoints(points);
           }
-        })
-        .catch((error) => console.log(error));
+        });
+      props.calcPoints(points);
+    } else {
+      console.log("User is playing without being logged in.");
     }
-
-    return <div>Score: {points}</div>;
   };
+
+  console.log(points);
+
+  const handlePointSystem = () => {
+    if (points !== 0) {
+      const scoreItem = points.map((point) => {
+        return <li key={point.id}>{point.points}</li>;
+      });
+    } else {
+      return <li>{props.points}</li>;
+    }
+  };
+
+  return (
+    <div>
+      <ul>Score: {handlePointSystem}</ul>
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => {
   return {
     points: state.pointReducer.points,
+    isAuthenticated: state.userReducer.isAuthenticated,
   };
 };
 
