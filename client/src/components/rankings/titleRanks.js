@@ -33,7 +33,7 @@ function TitleRanks(props) {
       body: JSON.stringify(rank),
     });
     const response = await addRank.json();
-    if (response.success) {
+    if (response.success && token) {
       props.onRankLoaded(rank);
       Navigate("/rankings");
     } else {
@@ -44,12 +44,15 @@ function TitleRanks(props) {
   const getUserRank = () => {
     if (points > 20) {
       props.onRankLoaded("Peasant");
-    } else if (points >= 20 && points <= 30) {
+    } else if (points >= 20 && points < 30) {
       props.onRankLoaded("Squire");
-    } else if (points >= 40 && points <= 60) {
+    } else if (points >= 40 && points < 60) {
       props.onRankLoaded("Marquess");
+    } else if (points >= 60 && points < 80) {
+      props.onRankLoaded("Prince");
     }
   };
+
   return (
     <div>
       <button onClick={handleUserPoints}>Save Score</button>

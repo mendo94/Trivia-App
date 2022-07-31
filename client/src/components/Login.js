@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actionCreators from "../store/creators/actionCreators";
 
-function Login() {
+function Login(props) {
   const [user, setUser] = useState({});
   const Navigate = useNavigate();
 
@@ -29,8 +29,12 @@ function Login() {
           // token is saved to local storage
           const token = result.token;
           const username = result.username;
+          const userId = result.userId;
           localStorage.setItem("jsonwebtoken", token);
           localStorage.setItem("username", username);
+          localStorage.setItem("userId", userId);
+          props.onLoadUser(userId);
+          props.onLogin(token);
 
           Navigate("/homepage");
         } else {
