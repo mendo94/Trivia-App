@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import Login from "../Login";
+import Login from "../userCredentials/Login";
 import Menu from "./Menu";
 import Logo from "./Logo";
 

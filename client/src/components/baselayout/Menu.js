@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
+
+import * as actionCreators from "../../store/creators/actionCreators";
 import styled from "styled-components";
 import "./Menu.css";
 
@@ -116,9 +120,17 @@ const ItemLink = styled(NavLink)`
   }
 `;
 
-function HamburgerMenu() {
+function HamburgerMenu(props) {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
+  let Navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("jsonwebtoken");
+    localStorage.removeItem("username");
+    localStorage.removeItem("userId");
+    props.onLogOut();
+    // Navigate("/login");
+  };
   return (
     <>
       <MenuLabel htmlFor="navi-toggle" onClick={handleClick}>
@@ -149,7 +161,7 @@ function HamburgerMenu() {
             </ItemLink>
           </li>
           <li>
-            <ItemLink onClick={handleClick} to="/logout">
+            <ItemLink onClick={(handleLogout, handleClick)} to="/login">
               Bid Thee Farewell
             </ItemLink>
           </li>
@@ -159,4 +171,10 @@ function HamburgerMenu() {
   );
 }
 
-export default HamburgerMenu;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLogOut: () => dispatch(actionCreators.loadAuth(null)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(HamburgerMenu);

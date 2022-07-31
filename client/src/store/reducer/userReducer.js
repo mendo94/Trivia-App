@@ -15,7 +15,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.LOAD_AUTH:
       return {
         ...state,
-        isAuthenticated: action.payload != null,
+        isAuthenticated: action.payload == true,
       };
     default:
       return state;
