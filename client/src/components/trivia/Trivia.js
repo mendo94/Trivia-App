@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Timer from "./Timer";
 import Questions from "./Questions";
 import TitleRanks from "../rankings/TitleRanks";
@@ -12,7 +13,8 @@ import Button from "@mui/material/Button";
 function Trivia(props) {
   const [loading, setLoading] = useState(true);
   const [difficulty, setDifficulty] = React.useState("");
-  const [trivia, setTrivia] = React.useState([]);
+
+  let Navigate = useNavigate();
 
   const handleChange = (e) => {
     setDifficulty(e.target.value);
@@ -23,7 +25,9 @@ function Trivia(props) {
       .get(
         `https://the-trivia-api.com/api/questions?limit=1&difficulty=${difficulty}`
       )
-      .then((response) => setTrivia(response.data));
+      .then((response) => {
+        Navigate("/homepage", { state: { trivia: response.data } });
+      });
   };
 
   useEffect(() => {
