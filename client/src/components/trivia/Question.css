@@ -1,3 +1,14 @@
 ul {
   list-style: none;
 }
+
+.nextBtn {
+  display: flex;
+  justify-content: center;
+}
+.trivia-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 2rem 0 0;
+  width: 100%;
+}

@@ -1,22 +1,65 @@
 import React, { useState, useEffect } from "react";
 import * as actionCreators from "../../store/creators/actionCreators";
-import { connect, useStore } from "react-redux";
+import { connect } from "react-redux";
+import SelectMenu from "./SelectMenu";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import { styled } from "@mui/material/styles";
+import style from "styled-components";
+import Grid from "@mui/material/Grid";
 import "./Question.css";
 
 function Questions(props) {
+  const COLORS = {
+    primaryDark: "#374e49",
+    primaryLight: "#B6EDC8",
+  };
+  const Card = style.label`
+  background-color: ${COLORS.primaryDark};
+  box-shadow: 0 0rem 1rem rgba(182, 237, 200, 0.3);
+  text-align: center
+
+`;
   const points = props.points;
   const isAuthenticated = props.isAuthenticated;
   const userId = props.userId;
   const rank = props.rank;
   const token = localStorage.getItem("jsonwebtoken");
+  const [difficulty, setDifficulty] = useState("");
+  const [trivia, setTrivia] = useState([]);
+  const [show, setShow] = useState(false);
+  const [buttonText, setButtonText] = useState("Begin");
+
+  function buttonChangeText() {
+    setButtonText("Next");
+    setTimeout(() => {
+      setButtonText("Next");
+    }, 1000);
+  }
+
+  const handleShowClick = (e) => {
+    setShow((current) => !current);
+  };
+
+  const handleChange = (e) => {
+    setDifficulty(e.target.value);
+  };
 
   const getTriviaQuestion = () => {
-    fetch("https://the-trivia-api.com/api/questions?limit=1", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `https://the-trivia-api.com/api/questions?limit=1&difficulty=${difficulty}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((response) => response.json())
       .then((question) => {
         if (question) {
@@ -91,36 +134,102 @@ function Questions(props) {
       }
     };
 
+    const Item = styled(Paper)(({ theme }) => ({
+      backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+      ...theme.typography.body2,
+      padding: theme.spacing(1),
+      textAlign: "center",
+      color: theme.palette.text.secondary,
+    }));
+
+    const content = (
+      <React.Fragment>
+        <CardContent>
+          <Typography sx={{ fontSize: 14 }} gutterBottom></Typography>
+          <Typography
+            style={{ marginBottom: "1rem" }}
+            variant="h5"
+            component="div"
+          >
+            {trivia.question}
+          </Typography>
+          <Box sx={{ width: "100%" }}>
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            >
+              <Grid item xs={6}>
+                <Item onClick={handleChoice1}>{shuffledAnswers[0]}</Item>
+              </Grid>
+              <Grid item xs={6}>
+                <Item onClick={handleChoice2}>{shuffledAnswers[1]}</Item>
+              </Grid>
+              <Grid item xs={6}>
+                <Item onClick={handleChoice3}>{shuffledAnswers[2]}</Item>
+              </Grid>
+              <Grid item xs={6}>
+                <Item onClick={handleChoice4}>{shuffledAnswers[3]}</Item>
+              </Grid>
+            </Grid>
+          </Box>
+          <Typography variant="body2"></Typography>
+        </CardContent>
+      </React.Fragment>
+    );
+
     return (
-      <div className="trivia-container">
-        <h4 key={trivia.id}>{trivia.question}</h4>
-        <div className="answer-container">
-          <button className="trivia-btn" onClick={handleChoice1}>
-            <li>A. {shuffledAnswers[0]}</li>
-          </button>
-          <button className="trivia-btn" onClick={handleChoice2}>
-            <li>B. {shuffledAnswers[1]}</li>
-          </button>
-          <button className="trivia-btn" onClick={handleChoice3}>
-            <li>C. {shuffledAnswers[2]}</li>
-          </button>
-          <button className="trivia-btn" onClick={handleChoice4}>
-            <li>D. {shuffledAnswers[3]}</li>
-          </button>
-        </div>
-        <div className="category-container">
-          <h2 className="category" key={trivia.id}>
+      <>
+        <div>
+          <h5 className="category" key={trivia.id}>
             Category: {trivia.category}
-          </h2>
+          </h5>
         </div>
-      </div>
+        <div className="trivia-container">
+          <Box>
+            <Card variant="outlined">{content}</Card>
+          </Box>
+        </div>
+      </>
     );
   });
 
   return (
     <>
-      <button onClick={() => getTriviaQuestion()}>Start</button>
+      {!show && (
+        <SelectMenu
+          setDifficulty={setDifficulty}
+          difficulty={difficulty}
+          handleChange={handleChange}
+        />
+      )}
+
       <ul>{triviaItems}</ul>
+      {!show && (
+        <Button
+          variant="contained"
+          style={{ marginTop: 10 }}
+          onClick={() => {
+            getTriviaQuestion();
+            handleShowClick();
+          }}
+        >
+          Begin
+        </Button>
+      )}
+      <div className="nextBtn">
+        {show && (
+          <Button
+            variant="contained"
+            style={{ marginTop: 10 }}
+            onClick={() => {
+              getTriviaQuestion();
+            }}
+          >
+            Next
+          </Button>
+        )}
+      </div>
     </>
   );
 }
