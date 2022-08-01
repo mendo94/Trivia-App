@@ -139,11 +139,32 @@ function Questions(props) {
       ...theme.typography.body2,
       padding: theme.spacing(1),
       textAlign: "center",
+      fontSize: "1rem",
       color: theme.palette.text.secondary,
     }));
 
+    const handleOptions = (options, correctAnswer) => {
+      console.log(options);
+      console.log(correctAnswer);
+    };
+
     const content = (
       <React.Fragment>
+        <Box>
+          <Grid>
+            <Grid>
+              {[...trivia.incorrectAnswers, trivia.correctAnswer].map(
+                (options) => {
+                  return (
+                    <div>
+                      <Item onClick={handleOptions(options)}>{options}</Item>
+                    </div>
+                  );
+                }
+              )}
+            </Grid>
+          </Grid>
+        </Box>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} gutterBottom></Typography>
           <Typography
@@ -160,16 +181,24 @@ function Questions(props) {
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             >
               <Grid item xs={6}>
-                <Item onClick={handleChoice1}>{shuffledAnswers[0]}</Item>
+                <Item className="answerKey" onClick={handleChoice1}>
+                  {shuffledAnswers[0]}
+                </Item>
               </Grid>
               <Grid item xs={6}>
-                <Item onClick={handleChoice2}>{shuffledAnswers[1]}</Item>
+                <Item className="answerKey" onClick={handleChoice2}>
+                  {shuffledAnswers[1]}
+                </Item>
               </Grid>
               <Grid item xs={6}>
-                <Item onClick={handleChoice3}>{shuffledAnswers[2]}</Item>
+                <Item className="answerKey" onClick={handleChoice3}>
+                  {shuffledAnswers[2]}
+                </Item>
               </Grid>
               <Grid item xs={6}>
-                <Item onClick={handleChoice4}>{shuffledAnswers[3]}</Item>
+                <Item className="answerKey" onClick={handleChoice4}>
+                  {shuffledAnswers[3]}
+                </Item>
               </Grid>
             </Grid>
           </Box>

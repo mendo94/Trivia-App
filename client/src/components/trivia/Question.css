@@ -12,3 +12,12 @@ ul {
   padding: 2rem 2rem 0 0;
   width: 100%;
 }
+
+.answerKey:hover {
+  background-color: #b6edc8;
+}
+
+.answerKey:active {
+  background-color: #2ca58b;
+  color: #fff;
+}
