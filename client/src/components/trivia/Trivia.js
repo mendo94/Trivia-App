@@ -12,23 +12,24 @@ import Button from "@mui/material/Button";
 
 function Trivia(props) {
   const [loading, setLoading] = useState(true);
-  const [difficulty, setDifficulty] = React.useState("");
+  const [difficulty, setDifficulty] = useState("");
+  const [trivia, setTrivia] = useState([]);
 
-  let Navigate = useNavigate();
+  // let Navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setDifficulty(e.target.value);
-  };
+  // const handleChange = (e) => {
+  //   setDifficulty(e.target.value);
+  // };
 
-  const getTrivia = () => {
-    axios
-      .get(
-        `https://the-trivia-api.com/api/questions?limit=1&difficulty=${difficulty}`
-      )
-      .then((response) => {
-        Navigate("/homepage", { state: { trivia: response.data } });
-      });
-  };
+  // const getTrivia = () => {
+  //   axios
+  //     .get(
+  //       `https://the-trivia-api.com/api/questions?limit=1&difficulty=${difficulty}`
+  //     )
+  //     .then((response) => {
+  //       Navigate("/homepage", { state: { trivia: response.data } });
+  //     });
+  // };
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 5000);
@@ -49,20 +50,20 @@ function Trivia(props) {
       )} */}
       <div>
         {props.isAuthenticated ? <Score /> : null}
-        <SelectMenu
+        {/* <SelectMenu
           setDifficulty={setDifficulty}
           difficulty={difficulty}
           handleChange={handleChange}
-        />
-        <Button
+        /> */}
+        {/* <Button
           onClick={getTrivia}
           variant="contained"
           style={{ marginTop: 10 }}
         >
           Start
-        </Button>
+        </Button> */}
         {/* <Timer /> */}
-        {/* <Questions /> */}
+        <Questions />
         {/* <TitleRanks /> */}
       </div>
     </>
