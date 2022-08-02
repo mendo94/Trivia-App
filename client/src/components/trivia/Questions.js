@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as actionCreators from "../../store/creators/actionCreators";
+import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import SelectMenu from "./SelectMenu";
 import Button from "@mui/material/Button";
@@ -14,6 +15,8 @@ import style from "styled-components";
 import Grid from "@mui/material/Grid";
 import GridUi from "./GridUI";
 import "./Question.css";
+import { db } from "../../firebase-config";
+import { addDoc, collection } from "firebase/firestore";
 
 function Questions(props) {
   const COLORS = {
@@ -35,7 +38,9 @@ function Questions(props) {
   const [trivia, setTrivia] = useState([]);
   const [show, setShow] = useState(false);
   const [buttonText, setButtonText] = useState("Begin");
+  const Navigate = useNavigate();
   const [result, setResult] = React.useState(0);
+  const databaseRef = collection(db, "Rankings");
 
   function buttonChangeText() {
     setButtonText("Next");
@@ -44,7 +49,7 @@ function Questions(props) {
     }, 1000);
   }
 
-  const handleShowClick = (e) => {
+  const handleShowClick = () => {
     setShow((current) => !current);
   };
 
@@ -70,6 +75,19 @@ function Questions(props) {
         }
       })
       .catch((error) => console.log(error));
+  };
+
+  const navigateToRankings = () => {
+    addDoc(databaseRef, {
+      difficulty: difficulty,
+      result: result,
+    }).then(() => {
+      Navigate("/rankings", {
+        state: {
+          userRankings: result,
+        },
+      });
+    });
   };
 
   function shuffle(array) {
@@ -136,15 +154,6 @@ function Questions(props) {
       }
     };
 
-    const Item = styled(Paper)(({ theme }) => ({
-      backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-      ...theme.typography.body2,
-      padding: theme.spacing(1),
-      textAlign: "center",
-      fontSize: "1rem",
-      color: theme.palette.text.secondary,
-    }));
-
     const content = (
       <React.Fragment>
         <CardContent>
@@ -183,7 +192,8 @@ function Questions(props) {
     return (
       <>
         <div>
-          <h2 result={result}>Score: {result}</h2>
+          <h2>Score: {result}</h2>
+
           <h5 className="category" key={trivia.id}>
             Category: {trivia.category}
           </h5>
@@ -233,7 +243,11 @@ function Questions(props) {
           </Button>
         )}
         {show && (
-          <Button variant="contained" style={{ margin: 5 }}>
+          <Button
+            variant="contained"
+            onClick={navigateToRankings}
+            style={{ margin: 5 }}
+          >
             See Rank
           </Button>
         )}
