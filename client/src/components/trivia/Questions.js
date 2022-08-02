@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as actionCreators from "../../store/creators/actionCreators";
 import { connect } from "react-redux";
 import SelectMenu from "./SelectMenu";
@@ -12,6 +12,7 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import style from "styled-components";
 import Grid from "@mui/material/Grid";
+import GridUi from "./GridUI";
 import "./Question.css";
 
 function Questions(props) {
@@ -69,70 +70,72 @@ function Questions(props) {
       })
       .catch((error) => console.log(error));
   };
+  // const sendScore = () => {
 
-  function shuffle(array) {
-    var currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
+  // }
+  // function shuffle(array) {
+  //   var currentIndex = array.length,
+  //     temporaryValue,
+  //     randomIndex;
 
-    while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
+  //   while (0 !== currentIndex) {
+  //     randomIndex = Math.floor(Math.random() * currentIndex);
+  //     currentIndex -= 1;
 
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-    return array;
-  }
+  //     temporaryValue = array[currentIndex];
+  //     array[currentIndex] = array[randomIndex];
+  //     array[randomIndex] = temporaryValue;
+  //   }
+  //   return array;
+  // }
 
-  const triviaItems = props.question.map((trivia) => {
-    const shuffledAnswers = shuffle([
-      trivia.incorrectAnswers[0],
-      trivia.incorrectAnswers[1],
-      trivia.incorrectAnswers[2],
-      trivia.correctAnswer,
-    ]);
+  // const triviaItems = props.question.map((trivia) => {
+  //   const shuffledAnswers = shuffle([
+  //     trivia.incorrectAnswers[0],
+  //     trivia.incorrectAnswers[1],
+  //     trivia.incorrectAnswers[2],
+  //     trivia.correctAnswer,
+  //   ]);
 
-    const handleChoice1 = () => {
-      if (shuffledAnswers[0] !== trivia.correctAnswer) {
-        console.log("wrong");
-        props.onSubtractPoints(points);
-      } else {
-        props.onAddPoints(points);
-        console.log("correct!!");
-      }
-    };
+  //   const handleChoice1 = () => {
+  //     if (shuffledAnswers[0] !== trivia.correctAnswer) {
+  //       console.log("wrong");
+  //       props.onSubtractPoints(points);
+  //     } else {
+  //       props.onAddPoints(points);
+  //       console.log("correct!!");
+  //     }
+  //   };
 
-    const handleChoice2 = () => {
-      if (shuffledAnswers[1] !== trivia.correctAnswer) {
-        console.log("wrong");
-        props.onSubtractPoints(points);
-      } else {
-        props.onAddPoints(points);
-        console.log("correct!!");
-      }
-    };
+  //   const handleChoice2 = () => {
+  //     if (shuffledAnswers[1] !== trivia.correctAnswer) {
+  //       console.log("wrong");
+  //       props.onSubtractPoints(points);
+  //     } else {
+  //       props.onAddPoints(points);
+  //       console.log("correct!!");
+  //     }
+  //   };
 
-    const handleChoice3 = () => {
-      if (shuffledAnswers[2] !== trivia.correctAnswer) {
-        console.log("wrong");
-        props.onSubtractPoints(points);
-      } else {
-        props.onAddPoints(points);
-        console.log("correct!!");
-      }
-    };
+  //   const handleChoice3 = () => {
+  //     if (shuffledAnswers[2] !== trivia.correctAnswer) {
+  //       console.log("wrong");
+  //       props.onSubtractPoints(points);
+  //     } else {
+  //       props.onAddPoints(points);
+  //       console.log("correct!!");
+  //     }
+  //   };
 
-    const handleChoice4 = () => {
-      if (shuffledAnswers[3] !== trivia.correctAnswer) {
-        console.log("wrong");
-        props.onSubtractPoints(points);
-      } else {
-        props.onAddPoints(points);
-        console.log("correct!!");
-      }
-    };
+  //   const handleChoice4 = () => {
+  //     if (shuffledAnswers[3] !== trivia.correctAnswer) {
+  //       console.log("wrong");
+  //       props.onSubtractPoints(points);
+  //     } else {
+  //       props.onAddPoints(points);
+  //       console.log("correct!!");
+  //     }
+  //   };
 
     const Item = styled(Paper)(({ theme }) => ({
       backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -143,28 +146,8 @@ function Questions(props) {
       color: theme.palette.text.secondary,
     }));
 
-    const handleOptions = (options, correctAnswer) => {
-      console.log(options);
-      console.log(correctAnswer);
-    };
-
     const content = (
       <React.Fragment>
-        <Box>
-          <Grid>
-            <Grid>
-              {[...trivia.incorrectAnswers, trivia.correctAnswer].map(
-                (options) => {
-                  return (
-                    <div>
-                      <Item onClick={handleOptions(options)}>{options}</Item>
-                    </div>
-                  );
-                }
-              )}
-            </Grid>
-          </Grid>
-        </Box>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} gutterBottom></Typography>
           <Typography
@@ -174,8 +157,26 @@ function Questions(props) {
           >
             {trivia.question}
           </Typography>
-          <Box sx={{ width: "100%" }}>
-            <Grid
+          <Box>
+            <Grid>
+              <Grid>
+                {[...trivia.incorrectAnswers, trivia.correctAnswer].map(
+                  (options) => {
+                    return (
+                      <div>
+                        <GridUi
+                          options={options}
+                          correctAnswer={trivia.correctAnswer}
+                        />
+                      </div>
+                    );
+                  }
+                )}
+              </Grid>
+            </Grid>
+          </Box>
+          {/* <Box sx={{ width: "100%" }}> */}
+          {/* <Grid
               container
               rowSpacing={1}
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
@@ -200,9 +201,8 @@ function Questions(props) {
                   {shuffledAnswers[3]}
                 </Item>
               </Grid>
-            </Grid>
-          </Box>
-          <Typography variant="body2"></Typography>
+            </Grid> */}
+          {/* </Box> */}
         </CardContent>
       </React.Fragment>
     );
@@ -256,6 +256,13 @@ function Questions(props) {
             }}
           >
             Next
+          </Button>
+        )}
+      </div>
+      <div className="nextBtn">
+        {show && (
+          <Button variant="contained" style={{ marginTop: 10 }}>
+            See Rank
           </Button>
         )}
       </div>
