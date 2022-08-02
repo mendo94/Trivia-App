@@ -15,9 +15,13 @@ function Rankings() {
   const [rankingsData, setRankingsData] = useState([]);
 
   useEffect(() => {
-    const { userRankings } = state;
-    setUserRankings(userRankings);
-    getData();
+    if (state) {
+      const { userRankings } = state;
+      setUserRankings(userRankings);
+      getData();
+    } else {
+      getData();
+    }
   }, []);
 
   const playAgain = () => {
@@ -26,11 +30,17 @@ function Rankings() {
 
   const getData = async () => {
     const data = await getDocs(databaseRef);
-    setRankingsData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    setRankingsData(
+      data.docs
+        .map((doc) => ({ ...doc.data(), id: doc.id }))
+        .sort((a, b) => parseFloat(b.result) - parseFloat(a.result))
+    );
   };
 
   return (
     <div>
+      <h2>Rankings</h2>
+
       <Button
         variant="contained"
         style={{ marginTop: 10 }}
@@ -42,10 +52,10 @@ function Rankings() {
         Play Again
       </Button>
       <h1>Your Score: {userRankings}</h1>
-      <h2>Rankings</h2>
-      {rankingsData.map((player) => {
-        return <RankingTable player={player} />;
-      })}
+
+      <div style={{ margin: 20 }}>
+        <RankingTable rankingsData={rankingsData} />
+      </div>
     </div>
   );
 }
