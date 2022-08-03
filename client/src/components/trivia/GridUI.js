@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import JSConfetti from "js-confetti";
+import DisableButton from "./buttons/DisableButton";
 import "./GridUI.css";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -23,7 +24,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function GridUI({ options, correctAnswer, result, setResult }) {
   const jsConfetti = new JSConfetti();
-  const [buttonColor, setButtonColor] = React.useState(null);
 
   const handleOptions = () => {
     if (correctAnswer === options) {
@@ -43,7 +43,6 @@ export default function GridUI({ options, correctAnswer, result, setResult }) {
         ],
       });
       setResult(result + 10);
-      setButtonColor("pink");
       toast.success("Correct!", {
         autoClose: 2000,
       });
@@ -54,12 +53,6 @@ export default function GridUI({ options, correctAnswer, result, setResult }) {
       });
     }
   };
-
-  // const nextQuestion = () => {
-  //   if (questionCounter < questionsArray.length + 1) {
-  //     setQuesCounter(questionCounter + 1);
-  //   }
-  // };
 
   return (
     <>
@@ -72,7 +65,6 @@ export default function GridUI({ options, correctAnswer, result, setResult }) {
               className="buttonColor"
               onClick={() => {
                 handleOptions();
-                // handleToastMessage();
               }}
             >
               {options}
