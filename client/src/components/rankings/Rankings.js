@@ -1,73 +1,137 @@
 import React, { useEffect, useState } from "react";
-import * as actionCreators from "../../store/creators/actionCreators";
-import { connect } from "react-redux";
-import "./Ranking.css";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+import { db } from "../../firebase-config";
+import { getDocs, collection } from "firebase/firestore";
+import RankingTable from "../rankings/RankingTable";
 
-function Rankings(props) {
-  const rankings = props.rankings;
+function Rankings() {
+  const { state } = useLocation();
+  const [userRankings, setUserRankings] = useState(0);
+  const Navigate = useNavigate();
+  const [result, setResult] = useState(0);
+  const databaseRef = collection(db, "Rankings");
+  const [rankingsData, setRankingsData] = useState([]);
 
   useEffect(() => {
-    getRankings();
+    if (state) {
+      const { userRankings } = state;
+      setUserRankings(userRankings);
+      getData();
+    } else {
+      getData();
+    }
   }, []);
 
-  const getRankings = () => {
-    fetch("http://localhost:2000/rankings", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((rankings) => {
-        rankings.sort((a, b) =>
-          a.points[0].points > b.points[0].points ? -1 : 1
-        );
-        props.getRankings(rankings);
-      });
+  const playAgain = () => {
+    Navigate("/trivia");
   };
 
-  const rankingItems = rankings.map((ranking) => {
-    console.log(ranking);
-    return (
-      <>
-        <tr>
-          <td key={ranking.id}>{ranking.first_name}</td>
-          <td>{ranking.username}</td>
-          <td> {ranking.points[0].points}</td>
-          <td> {ranking.points[0].rank}</td>
-        </tr>
-      </>
+  const getData = async () => {
+    const data = await getDocs(databaseRef);
+    setRankingsData(
+      data.docs
+        .map((doc) => ({ ...doc.data(), id: doc.id }))
+        .sort((a, b) => parseFloat(b.result) - parseFloat(a.result))
     );
-  });
+  };
 
   return (
-    <div className="ranking-container">
-      <h1 className="ranking-heading">Rankings</h1>
-      <table>
-        <tbody>
-          <tr>
-            <th>Name</th>
-            <th>Username</th>
-            <th>Score</th>
-            <th>Rank</th>
-          </tr>
-          {rankingItems}
-        </tbody>
-      </table>
+    <div>
+      <h2>Rankings</h2>
+
+      <Button
+        variant="contained"
+        style={{ marginTop: 10 }}
+        onClick={() => {
+          playAgain();
+          window.location.reload();
+        }}
+      >
+        Play Again
+      </Button>
+      <h1>Your Score: {userRankings}</h1>
+
+      <div style={{ margin: 20 }}>
+        <RankingTable rankingsData={rankingsData} />
+      </div>
     </div>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    rankings: state.pointReducer.rankings,
-  };
-};
+export default Rankings;
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getRankings: (rankings) => dispatch(actionCreators.getRankings(rankings)),
-  };
-};
+// import React, { useEffect, useState } from "react";
+// import * as actionCreators from "../../store/creators/actionCreators";
+// import { connect } from "react-redux";
+// import "./Ranking.css";
 
-export default connect(mapStateToProps, mapDispatchToProps)(Rankings);
+// function Rankings(props) {
+//   const rankings = props.rankings;
+
+//   useEffect(() => {
+//     getRankings();
+//   }, []);
+
+//   const getRankings = () => {
+//     fetch("http://localhost:2000/rankings", {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     })
+//       .then((response) => response.json())
+//       .then((rankings) => {
+//         rankings.sort((a, b) =>
+//           a.points[0].points > b.points[0].points ? -1 : 1
+//         );
+//         props.getRankings(rankings);
+//       });
+//   };
+
+//   const rankingItems = rankings.map((ranking) => {
+//     console.log(ranking);
+//     return (
+//       <>
+//         <tr>
+//           <td key={ranking.id}>{ranking.first_name}</td>
+//           <td>{ranking.username}</td>
+//           <td> {ranking.points[0].points}</td>
+//           <td> {ranking.points[0].rank}</td>
+//         </tr>
+//       </>
+//     );
+//   });
+
+//   return (
+//     <div className="ranking-container">
+//       <h1 className="ranking-heading">Rankings</h1>
+//       <table>
+//         <tbody>
+//           <tr>
+//             <th>Name</th>
+//             <th>Username</th>
+//             <th>Score</th>
+//             <th>Rank</th>
+//           </tr>
+//           {rankingItems}
+//         </tbody>
+//       </table>
+//     </div>
+//   );
+// }
+
+// const mapStateToProps = (state) => {
+//   return {
+//     rankings: state.pointReducer.rankings,
+//   };
+// };
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     getRankings: (rankings) => dispatch(actionCreators.getRankings(rankings)),
+//   };
+// };
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Rankings);

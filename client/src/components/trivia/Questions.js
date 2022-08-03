@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as actionCreators from "../../store/creators/actionCreators";
+import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import SelectMenu from "./SelectMenu";
 import Button from "@mui/material/Button";
@@ -14,6 +15,8 @@ import style from "styled-components";
 import Grid from "@mui/material/Grid";
 import GridUi from "./GridUI";
 import "./Question.css";
+import { db } from "../../firebase-config";
+import { addDoc, collection } from "firebase/firestore";
 
 function Questions(props) {
   const COLORS = {
@@ -35,6 +38,9 @@ function Questions(props) {
   const [trivia, setTrivia] = useState([]);
   const [show, setShow] = useState(false);
   const [buttonText, setButtonText] = useState("Begin");
+  const Navigate = useNavigate();
+  const [result, setResult] = React.useState(0);
+  const databaseRef = collection(db, "Rankings");
 
   function buttonChangeText() {
     setButtonText("Next");
@@ -43,7 +49,7 @@ function Questions(props) {
     }, 1000);
   }
 
-  const handleShowClick = (e) => {
+  const handleShowClick = () => {
     setShow((current) => !current);
   };
 
@@ -70,81 +76,83 @@ function Questions(props) {
       })
       .catch((error) => console.log(error));
   };
-  // const sendScore = () => {
 
-  // }
-  // function shuffle(array) {
-  //   var currentIndex = array.length,
-  //     temporaryValue,
-  //     randomIndex;
+  const navigateToRankings = () => {
+    addDoc(databaseRef, {
+      difficulty: difficulty,
+      result: result,
+    }).then(() => {
+      Navigate("/rankings", {
+        state: {
+          userRankings: result,
+        },
+      });
+    });
+  };
 
-  //   while (0 !== currentIndex) {
-  //     randomIndex = Math.floor(Math.random() * currentIndex);
-  //     currentIndex -= 1;
+  function shuffle(array) {
+    var currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
 
-  //     temporaryValue = array[currentIndex];
-  //     array[currentIndex] = array[randomIndex];
-  //     array[randomIndex] = temporaryValue;
-  //   }
-  //   return array;
-  // }
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
 
-  // const triviaItems = props.question.map((trivia) => {
-  //   const shuffledAnswers = shuffle([
-  //     trivia.incorrectAnswers[0],
-  //     trivia.incorrectAnswers[1],
-  //     trivia.incorrectAnswers[2],
-  //     trivia.correctAnswer,
-  //   ]);
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+    return array;
+  }
 
-  //   const handleChoice1 = () => {
-  //     if (shuffledAnswers[0] !== trivia.correctAnswer) {
-  //       console.log("wrong");
-  //       props.onSubtractPoints(points);
-  //     } else {
-  //       props.onAddPoints(points);
-  //       console.log("correct!!");
-  //     }
-  //   };
+  const triviaItems = props.question.map((trivia) => {
+    const shuffledAnswers = shuffle([
+      trivia.incorrectAnswers[0],
+      trivia.incorrectAnswers[1],
+      trivia.incorrectAnswers[2],
+      trivia.correctAnswer,
+    ]);
 
-  //   const handleChoice2 = () => {
-  //     if (shuffledAnswers[1] !== trivia.correctAnswer) {
-  //       console.log("wrong");
-  //       props.onSubtractPoints(points);
-  //     } else {
-  //       props.onAddPoints(points);
-  //       console.log("correct!!");
-  //     }
-  //   };
+    const handleChoice1 = () => {
+      if (shuffledAnswers[0] !== trivia.correctAnswer) {
+        console.log("wrong");
+        props.onSubtractPoints(points);
+      } else {
+        props.onAddPoints(points);
+        console.log("correct!!");
+      }
+    };
 
-  //   const handleChoice3 = () => {
-  //     if (shuffledAnswers[2] !== trivia.correctAnswer) {
-  //       console.log("wrong");
-  //       props.onSubtractPoints(points);
-  //     } else {
-  //       props.onAddPoints(points);
-  //       console.log("correct!!");
-  //     }
-  //   };
+    const handleChoice2 = () => {
+      if (shuffledAnswers[1] !== trivia.correctAnswer) {
+        console.log("wrong");
+        props.onSubtractPoints(points);
+      } else {
+        props.onAddPoints(points);
+        console.log("correct!!");
+      }
+    };
 
-  //   const handleChoice4 = () => {
-  //     if (shuffledAnswers[3] !== trivia.correctAnswer) {
-  //       console.log("wrong");
-  //       props.onSubtractPoints(points);
-  //     } else {
-  //       props.onAddPoints(points);
-  //       console.log("correct!!");
-  //     }
-  //   };
+    const handleChoice3 = () => {
+      if (shuffledAnswers[2] !== trivia.correctAnswer) {
+        console.log("wrong");
+        props.onSubtractPoints(points);
+      } else {
+        props.onAddPoints(points);
+        console.log("correct!!");
+      }
+    };
 
-    const Item = styled(Paper)(({ theme }) => ({
-      backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-      ...theme.typography.body2,
-      padding: theme.spacing(1),
-      textAlign: "center",
-      fontSize: "1rem",
-      color: theme.palette.text.secondary,
-    }));
+    const handleChoice4 = () => {
+      if (shuffledAnswers[3] !== trivia.correctAnswer) {
+        console.log("wrong");
+        props.onSubtractPoints(points);
+      } else {
+        props.onAddPoints(points);
+        console.log("correct!!");
+      }
+    };
 
     const content = (
       <React.Fragment>
@@ -167,6 +175,8 @@ function Questions(props) {
                         <GridUi
                           options={options}
                           correctAnswer={trivia.correctAnswer}
+                          result={result}
+                          setResult={setResult}
                         />
                       </div>
                     );
@@ -175,34 +185,6 @@ function Questions(props) {
               </Grid>
             </Grid>
           </Box>
-          {/* <Box sx={{ width: "100%" }}> */}
-          {/* <Grid
-              container
-              rowSpacing={1}
-              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-            >
-              <Grid item xs={6}>
-                <Item className="answerKey" onClick={handleChoice1}>
-                  {shuffledAnswers[0]}
-                </Item>
-              </Grid>
-              <Grid item xs={6}>
-                <Item className="answerKey" onClick={handleChoice2}>
-                  {shuffledAnswers[1]}
-                </Item>
-              </Grid>
-              <Grid item xs={6}>
-                <Item className="answerKey" onClick={handleChoice3}>
-                  {shuffledAnswers[2]}
-                </Item>
-              </Grid>
-              <Grid item xs={6}>
-                <Item className="answerKey" onClick={handleChoice4}>
-                  {shuffledAnswers[3]}
-                </Item>
-              </Grid>
-            </Grid> */}
-          {/* </Box> */}
         </CardContent>
       </React.Fragment>
     );
@@ -210,6 +192,8 @@ function Questions(props) {
     return (
       <>
         <div>
+          <h2>Score: {result}</h2>
+
           <h5 className="category" key={trivia.id}>
             Category: {trivia.category}
           </h5>
@@ -250,7 +234,7 @@ function Questions(props) {
         {show && (
           <Button
             variant="contained"
-            style={{ marginTop: 10 }}
+            style={{ margin: 5 }}
             onClick={() => {
               getTriviaQuestion();
             }}
@@ -258,10 +242,12 @@ function Questions(props) {
             Next
           </Button>
         )}
-      </div>
-      <div className="nextBtn">
         {show && (
-          <Button variant="contained" style={{ marginTop: 10 }}>
+          <Button
+            variant="contained"
+            onClick={navigateToRankings}
+            style={{ margin: 5 }}
+          >
             See Rank
           </Button>
         )}

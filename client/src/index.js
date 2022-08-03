@@ -20,6 +20,8 @@ import * as actionCreators from "./store/creators/actionCreators";
 import userReducer from "./store/reducer/userReducer";
 import pointReducer from "./store/reducer/pointReducer";
 import questionReducer from "./store/reducer/questionReducer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const rootReducer = combineReducers({
   userReducer: userReducer,
@@ -50,6 +52,7 @@ root.render(
             <Route path="/rankings" element={<Rankings />} />
           </Routes>
         </BaseLayout>
+        <ToastContainer autoClose={2000} />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

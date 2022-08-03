@@ -15,22 +15,6 @@ function Trivia(props) {
   const [difficulty, setDifficulty] = useState("");
   const [trivia, setTrivia] = useState([]);
 
-  // let Navigate = useNavigate();
-
-  // const handleChange = (e) => {
-  //   setDifficulty(e.target.value);
-  // };
-
-  // const getTrivia = () => {
-  //   axios
-  //     .get(
-  //       `https://the-trivia-api.com/api/questions?limit=1&difficulty=${difficulty}`
-  //     )
-  //     .then((response) => {
-  //       Navigate("/homepage", { state: { trivia: response.data } });
-  //     });
-  // };
-
   useEffect(() => {
     setTimeout(() => setLoading(false), 5000);
   }, []);
@@ -63,6 +47,7 @@ function Trivia(props) {
           Start
         </Button> */}
         {/* <Timer /> */}
+
         <Questions />
         {/* <TitleRanks /> */}
       </div>
