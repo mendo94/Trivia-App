@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/creators/actionCreators";
-
+import LoginUI from "./LoginUI";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth, provider } from "../../firebase-config"; // update path to your firestore config
 
 function Login(props) {
   const [user, setUser] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const { email, password } = formData;
   const Navigate = useNavigate();
 
   const googleHandler = async () => {
@@ -71,6 +77,7 @@ function Login(props) {
 
   return (
     <div>
+      <LoginUI />
       <button onClick={googleHandler}>google</button>
       <h1>Login</h1>
       <input

@@ -11,8 +11,8 @@ function BaseLayout(props) {
   return (
     <div>
       <Logo />
-      {/* {props.isAuthenticated ? <Menu /> : null} */}
-      <Menu />
+      {props.isAuthenticated ? <Menu /> : null}
+      {/* <Menu /> */}
       {props.children}
     </div>
   );
