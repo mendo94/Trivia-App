@@ -25,27 +25,6 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function GridUI({ options, correctAnswer, result, setResult }) {
   const jsConfetti = new JSConfetti();
 
-  function shuffle(array) {
-    var currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
-
-    while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-    return array;
-  }
-
-  // yesterday added the homepage and worked on media queries and got sign in with google working. Today I am working on styling and fixing a few bugs and deploying. blocker is running out of time
-
-  // const shuffledAnswers = shuffle([options]);
-  // console.log(shuffledAnswers);
-
   const handleOptions = () => {
     if (correctAnswer === options) {
       jsConfetti.addConfetti({

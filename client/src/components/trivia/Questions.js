@@ -154,6 +154,11 @@ function Questions(props) {
       }
     };
 
+    const shuffler = shuffle([
+      trivia.correctAnswer,
+      ...trivia.incorrectAnswers,
+    ]);
+    console.log(shuffler);
     const content = (
       <React.Fragment>
         <CardContent>
@@ -168,22 +173,23 @@ function Questions(props) {
           <Box>
             <Grid>
               <Grid>
-                {[...trivia.incorrectAnswers, trivia.correctAnswer].map(
-                  (options) => {
-                    const shuffledOptions = shuffle([options]);
-                    console.log(shuffledOptions);
-                    return (
-                      <div>
-                        <GridUi
-                          options={options}
-                          correctAnswer={trivia.correctAnswer}
-                          result={result}
-                          setResult={setResult}
-                        />
-                      </div>
-                    );
-                  }
-                )}
+                {shuffle([
+                  ...trivia.incorrectAnswers,
+                  trivia.correctAnswer,
+                ]).map((options) => {
+                  shuffle([options]);
+                  console.log(options);
+                  return (
+                    <div>
+                      <GridUi
+                        options={options}
+                        correctAnswer={trivia.correctAnswer}
+                        result={result}
+                        setResult={setResult}
+                      />
+                    </div>
+                  );
+                })}
               </Grid>
             </Grid>
           </Box>
