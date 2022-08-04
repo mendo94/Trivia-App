@@ -170,6 +170,8 @@ function Questions(props) {
               <Grid>
                 {[...trivia.incorrectAnswers, trivia.correctAnswer].map(
                   (options) => {
+                    const shuffledOptions = shuffle([options]);
+                    console.log(shuffledOptions);
                     return (
                       <div>
                         <GridUi
