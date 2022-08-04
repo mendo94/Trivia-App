@@ -10,7 +10,7 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      light: "#757ce8",
+      light: "#B6EDC8",
       main: "#3f50b5",
       dark: "#002884",
       contrastText: "#fff",
@@ -41,6 +41,14 @@ export default function SelectMenu({ difficulty, handleChange }) {
         <FormControl sx={{ m: 1, width: 300, mt: 3 }}>
           <InputLabel id="demo-simple-select-label">Difficulty</InputLabel>
           <Select
+            MenuProps={{
+              sx: {
+                "&& .MuiMenuItem-root": {
+                  backgroundColor: "#374e49",
+                  color: "#fff",
+                },
+              },
+            }}
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={difficulty}
