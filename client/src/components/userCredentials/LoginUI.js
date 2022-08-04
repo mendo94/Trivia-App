@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,6 +12,8 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth, provider } from "../../firebase-config"; // update path to your firestore config
 
 function Copyright(props) {
   return (
@@ -32,7 +35,42 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function LoginUI() {
+export default function LoginUI(props) {
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [formData, setFormData] = React.useState({
+    email: "",
+    password: "",
+  });
+  const { email, password } = formData;
+  const Navigate = useNavigate();
+
+  const googleHandler = async () => {
+    provider.setCustomParameters({ prompt: "select_account" });
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        console.log(credential);
+        console.log(token);
+        console.log(result);
+        // The signed-in user info.
+        const user = result.user;
+        // redux action? --> dispatch({ type: SET_USER, user });
+        localStorage.setItem("googlewebtoken", token);
+        localStorage.setItem("username", user);
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -114,6 +152,15 @@ export default function LoginUI() {
                 sx={{ mt: 3, mb: 2 }}
               >
                 Sign In
+              </Button>
+              <Button
+                onClick={googleHandler}
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign in with Google
               </Button>
               <Grid container>
                 <Grid item xs>
