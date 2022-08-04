@@ -4,6 +4,11 @@ import { useNavigate } from "react-router-dom";
 import Video from "./components/assets/Video";
 
 function App() {
+  const Navigate = useNavigate();
+  const handleQuestButton = () => {
+    Navigate("/trivia");
+  };
+
   return (
     <div>
       <h1 className="app-header" style={{ textAlign: "center", margin: 10 }}>
@@ -11,6 +16,7 @@ function App() {
       </h1>
       <div style={{ display: "flex", justifyContent: "center", margin: 10 }}>
         <button
+          onClick={handleQuestButton}
           style={{
             backgroundColor: "#374e49",
             color: "#fff",

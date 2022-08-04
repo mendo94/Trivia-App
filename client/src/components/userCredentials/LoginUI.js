@@ -5,6 +5,8 @@ import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import * as actionCreators from "../../store/creators/actionCreators";
+import { connect } from "react-redux";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
@@ -35,7 +37,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function LoginUI(props) {
+function LoginUI(props) {
   const [showPassword, setShowPassword] = React.useState(false);
   const [formData, setFormData] = React.useState({
     email: "",
@@ -59,6 +61,8 @@ export default function LoginUI(props) {
         // redux action? --> dispatch({ type: SET_USER, user });
         localStorage.setItem("googlewebtoken", token);
         localStorage.setItem("username", user);
+        props.onLogin(true);
+        Navigate("/homepage");
       })
       .catch((error) => {
         // Handle Errors here.
@@ -182,3 +186,12 @@ export default function LoginUI(props) {
     </ThemeProvider>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoadUser: (userId) => dispatch(actionCreators.loadUser(userId)),
+    onLogin: (token) => dispatch(actionCreators.loadAuth(token)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(LoginUI);

@@ -192,7 +192,7 @@ function Questions(props) {
     return (
       <>
         <div>
-          <h2>Score: {result}</h2>
+          <h6>Score: {result}</h6>
 
           <h5 className="category" key={trivia.id}>
             Category: {trivia.category}
