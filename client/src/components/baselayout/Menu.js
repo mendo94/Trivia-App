@@ -142,7 +142,7 @@ function HamburgerMenu(props) {
         <List>
           <li>
             <ItemLink onClick={handleClick} to="/homepage">
-              Return to Quarters
+              The Nobleman's Tale
             </ItemLink>
           </li>
           <li>

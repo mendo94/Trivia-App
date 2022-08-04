@@ -14,7 +14,7 @@ export default function RankingTable({ rankingsData }) {
       <Table sx={{ minWidth: 150 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Id</TableCell>
+            <TableCell>Nobleman</TableCell>
             <TableCell>Difficulty</TableCell>
             <TableCell>Result</TableCell>
           </TableRow>

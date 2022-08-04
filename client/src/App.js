@@ -1,62 +1,33 @@
-import * as React from "react";
-import { useLocation } from "react-router-dom";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-// import { app } from "./firebase-config";
+import React, { Component } from "react";
+import { useNavigate } from "react-router-dom";
+
+import Video from "./components/assets/Video";
 
 function App() {
-  // const { state } = useLocation();
-  // const { trivia } = state;
+  const Navigate = useNavigate();
+  const handleQuestButton = () => {
+    Navigate("/trivia");
+  };
 
-  // const [triviaQuestion] = trivia;
-  // console.log(triviaQuestion.question);
-  const bull = (
-    <Box
-      component="span"
-      sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-    >
-      •
-    </Box>
-  );
-
-  const card = (
-    <React.Fragment>
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} gutterBottom></Typography>
-        <Typography variant="h5" component="div">
-          be{bull}nev{bull}o{bull}lent
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
-        </Typography>
-        <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </React.Fragment>
-  );
-  const nextQuestion = () => {};
   return (
-    <div className="App">
-      <Box sx={{ minWidth: 275 }}>
-        <Card variant="outlined">{card}</Card>
-      </Box>
-      <Button
-        onClick={nextQuestion}
-        variant="contained"
-        style={{ marginTop: 10 }}
-      >
-        Next Question
-      </Button>
+    <div>
+      <h1 className="app-header" style={{ textAlign: "center", margin: 10 }}>
+        We need your help to defeat Genghis Khan
+      </h1>
+      <div style={{ display: "flex", justifyContent: "center", margin: 10 }}>
+        <button
+          onClick={handleQuestButton}
+          style={{
+            backgroundColor: "#374e49",
+            color: "#fff",
+            padding: 10,
+            fontSize: "2rem",
+          }}
+        >
+          Begin Quest
+        </button>
+      </div>
+      <Video />
     </div>
   );
 }
