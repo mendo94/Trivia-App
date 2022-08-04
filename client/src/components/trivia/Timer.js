@@ -42,7 +42,7 @@ function Timer() {
     // If you adjust it you should also need to
     // adjust the Endtime formula we are about
     // to code next
-    setTimer("00:00:20");
+    setTimer("00:00:10");
 
     // If you try to remove this line the
     // updating of timer Variable will be
@@ -59,7 +59,7 @@ function Timer() {
 
     // This is where you need to adjust if
     // you entend to add more time
-    deadline.setSeconds(deadline.getSeconds() + 20);
+    deadline.setSeconds(deadline.getSeconds() + 10);
     return deadline;
   };
 
@@ -83,7 +83,6 @@ function Timer() {
   return (
     <div className="App">
       <h2>{timer}</h2>
-      <button onClick={onClickReset}>Reset</button>
     </div>
   );
 }

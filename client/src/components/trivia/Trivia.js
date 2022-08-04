@@ -9,48 +9,53 @@ import { connect } from "react-redux";
 import axios from "axios";
 import Score from "./Score";
 import Button from "@mui/material/Button";
+import Soundify from "../music/Soundify";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMusic } from "@fortawesome/free-solid-svg-icons";
 
 function Trivia(props) {
   const [loading, setLoading] = useState(true);
   const [difficulty, setDifficulty] = useState("");
   const [trivia, setTrivia] = useState([]);
-
+  const [show, setShow] = useState(false);
   useEffect(() => {
     setTimeout(() => setLoading(false), 5000);
   }, []);
+
+  const handleShowClick = () => {
+    setShow((current) => !current);
+  };
 
   console.log(props.isAuthenticated);
 
   return (
     <>
-      {/* {loading ? (
+      {loading ? (
         <LoadingScreen />
       ) : (
         <div>
-          <Score />
           <Timer />
-          <Questions />
-        </div>
-      )} */}
-      <div>
-        {props.isAuthenticated ? <Score /> : null}
-        {/* <SelectMenu
-          setDifficulty={setDifficulty}
-          difficulty={difficulty}
-          handleChange={handleChange}
-        /> */}
-        {/* <Button
-          onClick={getTrivia}
-          variant="contained"
-          style={{ marginTop: 10 }}
-        >
-          Start
-        </Button> */}
-        {/* <Timer /> */}
 
-        <Questions />
-        {/* <TitleRanks /> */}
-      </div>
+          <Questions />
+          {!show && (
+            <Button
+              style={{ margin: 20 }}
+              variant="contained"
+              onClick={handleShowClick}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>
+                  <FontAwesomeIcon icon={faMusic} />
+                </span>
+                {"             "}
+                <span>Listen</span>
+              </div>
+            </Button>
+          )}
+          {show && <Soundify />}
+        </div>
+      )}
     </>
   );
 }

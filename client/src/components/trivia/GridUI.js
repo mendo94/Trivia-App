@@ -8,6 +8,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import JSConfetti from "js-confetti";
 import "./GridUI.css";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -15,6 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
   textAlign: "center",
   color: theme.palette.text.secondary,
+  fontSize: "1.5rem",
   hover: {
     "&:hover": {
       background: "rgb(7, 177, 77, 0.42)",
@@ -24,9 +28,13 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function GridUI({ options, correctAnswer, result, setResult }) {
   const jsConfetti = new JSConfetti();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleOptions = () => {
     if (correctAnswer === options) {
+      setOpen(true);
       jsConfetti.addConfetti({
         confettiNumber: 100,
         confettiColors: [
@@ -47,6 +55,7 @@ export default function GridUI({ options, correctAnswer, result, setResult }) {
         autoClose: 2000,
       });
     } else if (correctAnswer !== options) {
+      setOpen(true);
       setResult(result - 10);
       toast.error(`Wrong, my Lord. The correct answer was ${correctAnswer}`, {
         autoClose: 2000,
@@ -60,12 +69,11 @@ export default function GridUI({ options, correctAnswer, result, setResult }) {
         <Grid container spacing={2}>
           <Grid item xs={12} style={{ margin: 10 }}>
             <ToastContainer />
+
             <Item
               variant="solid"
               className="buttonColor"
-              onClick={() => {
-                handleOptions();
-              }}
+              onClick={handleOptions}
             >
               {options}
             </Item>

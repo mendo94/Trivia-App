@@ -83,6 +83,7 @@ const Navigation = styled.nav`
   top: 0;
   right: 0;
   z-index: 600;
+
   width: ${(props) => (props.clicked ? "100%" : "0")};
   opacity: ${(props) => (props.clicked ? "1" : "0")};
   transition: width 0.8s, opacity 0.8s;

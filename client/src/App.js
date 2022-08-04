@@ -11,10 +11,27 @@ function App() {
 
   return (
     <div>
-      <h1 className="app-header" style={{ textAlign: "center", margin: 10 }}>
-        We need your help to defeat Genghis Khan
-      </h1>
-      <div style={{ display: "flex", justifyContent: "center", margin: 10 }}>
+      <div
+        style={{
+          margin: "2rem",
+          // border: "2px solid black",
+          backgroundColor: "#374e40",
+          boxShadow: "0 1rem 3rem rgba(182, 237, 200, 0.2.5)",
+        }}
+      >
+        <h1 className="app-header" style={{ textAlign: "center", margin: 10 }}>
+          We need your help to defeat Genghis Khan and his Mongol Empire
+        </h1>
+      </div>
+
+      <div
+        style={{
+          fontFamily: "Almendra",
+          display: "flex",
+          justifyContent: "center",
+          margin: 10,
+        }}
+      >
         <button
           onClick={handleQuestButton}
           style={{
