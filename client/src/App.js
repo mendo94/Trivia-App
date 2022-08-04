@@ -12,8 +12,9 @@ function App() {
   return (
     <div>
       <h1 className="app-header" style={{ textAlign: "center", margin: 10 }}>
-        We need your help to defeat Genghis Khan
+        We need your help to defeat Genghis Khan and his Mongol Empire
       </h1>
+
       <div style={{ display: "flex", justifyContent: "center", margin: 10 }}>
         <button
           onClick={handleQuestButton}

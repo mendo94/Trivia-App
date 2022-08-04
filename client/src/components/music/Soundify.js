@@ -42,7 +42,15 @@ export default function Soundify() {
   };
 
   return (
-    <div className="App">
+    <div
+      style={{
+        position: "fixed",
+        left: 0,
+        bottom: 0,
+        right: 0,
+        backgroundColor: "rgba(182, 237, 200, 0.3)",
+      }}
+    >
       <AudioPlayer
         style={{
           borderRadius: "1rem",

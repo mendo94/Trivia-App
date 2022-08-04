@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
-
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, combineReducers, applyMiddleware } from "redux";
@@ -22,6 +24,7 @@ import pointReducer from "./store/reducer/pointReducer";
 import questionReducer from "./store/reducer/questionReducer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./index.css";
 
 const rootReducer = combineReducers({
   userReducer: userReducer,
@@ -52,6 +55,7 @@ root.render(
             <Route path="/rankings" element={<Rankings />} />
           </Routes>
         </BaseLayout>
+        <Button />
         <ToastContainer autoClose={2000} />
       </BrowserRouter>
     </Provider>

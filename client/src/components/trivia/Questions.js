@@ -9,6 +9,7 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import CardMedia from "@mui/material/CardMedia";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import style from "styled-components";
@@ -17,6 +18,7 @@ import GridUi from "./GridUI";
 import "./Question.css";
 import { db } from "../../firebase-config";
 import { addDoc, collection } from "firebase/firestore";
+import { Icon } from "@mui/material";
 
 function Questions(props) {
   const COLORS = {
@@ -162,10 +164,18 @@ function Questions(props) {
     const content = (
       <React.Fragment>
         <CardContent>
+          <CardMedia
+            component="img"
+            height="100vh"
+            image={
+              "https://images.unsplash.com/photo-1600924779117-927b4f81457d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+            }
+            alt="Knight on Horse"
+          />
           <Typography sx={{ fontSize: 14 }} gutterBottom></Typography>
           <Typography
             style={{ marginBottom: "1rem" }}
-            variant="h5"
+            variant="h4"
             component="div"
           >
             {trivia.question}
@@ -178,10 +188,10 @@ function Questions(props) {
                   trivia.correctAnswer,
                 ]).map((options) => {
                   shuffle([options]);
-                  console.log(options);
                   return (
                     <div>
                       <GridUi
+                        key={options}
                         options={options}
                         correctAnswer={trivia.correctAnswer}
                         result={result}
@@ -229,7 +239,13 @@ function Questions(props) {
       {!show && (
         <Button
           variant="contained"
-          style={{ marginTop: 10 }}
+          style={{
+            marginTop: 10,
+            backgroundColor: "#374e49",
+            color: "#fff",
+            padding: 10,
+            fontSize: "2rem",
+          }}
           onClick={() => {
             getTriviaQuestion();
             handleShowClick();
@@ -242,7 +258,13 @@ function Questions(props) {
         {show && (
           <Button
             variant="contained"
-            style={{ margin: 5 }}
+            style={{
+              margin: 5,
+              backgroundColor: "#374e49",
+              color: "#fff",
+              padding: 10,
+              fontSize: "2rem",
+            }}
             onClick={() => {
               getTriviaQuestion();
             }}
@@ -254,7 +276,13 @@ function Questions(props) {
           <Button
             variant="contained"
             onClick={navigateToRankings}
-            style={{ margin: 5 }}
+            style={{
+              backgroundColor: "#374e49",
+              color: "#fff",
+              padding: 10,
+              fontSize: "2rem",
+              margin: 5,
+            }}
           >
             See Rank
           </Button>
