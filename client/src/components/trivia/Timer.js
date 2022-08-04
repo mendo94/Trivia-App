@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import DisableButton from "./buttons/DisableButton";
 
 function Timer() {
   // We need ref in this, because we are dealing
@@ -84,7 +83,6 @@ function Timer() {
   return (
     <div className="App">
       <h2>{timer}</h2>
-      <DisableButton />
     </div>
   );
 }

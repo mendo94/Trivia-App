@@ -35,27 +35,27 @@ function Trivia(props) {
         <LoadingScreen />
       ) : (
         <div>
-          {/* <Score /> */}
           <Timer />
 
           <Questions />
           {!show && (
-            <Button variant="contained" onClick={handleShowClick}>
-              {" "}
-              <FontAwesomeIcon icon={faMusic} />
+            <Button
+              style={{ margin: 20 }}
+              variant="contained"
+              onClick={handleShowClick}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span>
+                  <FontAwesomeIcon icon={faMusic} />
+                </span>
+                {"             "}
+                <span>Listen</span>
+              </div>
             </Button>
           )}
           {show && <Soundify />}
         </div>
       )}
-      <div>
-        {/* {props.isAuthenticated ? <Score /> : null} */}
-
-        {/* <Timer /> */}
-
-        {/* <Questions /> */}
-        {/* <TitleRanks /> */}
-      </div>
     </>
   );
 }

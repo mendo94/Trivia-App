@@ -48,7 +48,9 @@ export default function Soundify() {
         left: 0,
         bottom: 0,
         right: 0,
-        backgroundColor: "rgba(182, 237, 200, 0.3)",
+        // backgroundColor: "rgba(182, 237, 200, 0.3)",
+        padding: 10,
+        margin: 100,
       }}
     >
       <AudioPlayer
