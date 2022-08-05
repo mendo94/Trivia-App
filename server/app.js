@@ -50,7 +50,6 @@ app.post("/login", async (req, res) => {
   });
   if (user) {
     bcrypt.compare(password, user.password, (err, result) => {
-      console.log(result);
       if (result) {
         const token = jwt.sign(
           { userId: user.id, username: user.username },

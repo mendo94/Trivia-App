@@ -14,7 +14,11 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  OAuthCredential,
+} from "firebase/auth";
 import { auth, provider } from "../../firebase-config";
 
 function Copyright(props) {
@@ -86,10 +90,12 @@ function LoginUI(props) {
   };
 
   const handleSubmit = (e) => {
+    if (OAuthCredential) {
+      Navigate("/homepage");
+    }
     // localStorage.setItem("username", user);
     // props.onLogin(true);
     // console.log(user);
-    Navigate("/homepage");
   };
 
   return (

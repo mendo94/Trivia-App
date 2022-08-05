@@ -14,21 +14,16 @@ import { connect } from "react-redux";
 
 function TitleRanks(props) {
   const points = props.points;
-  console.log(points);
+
   const isAuthenticated = props.isAuthenticated;
   const userId = props.userId;
-  console.log(userId);
+
   const rank = props.rank;
   const token = localStorage.getItem("jsonwebtoken");
   localStorage.getItem("userId");
-  console.log(userId);
+
   const Navigate = useNavigate();
   const [pointsGained, setPointsGained] = useState([]);
-
-  //   console.log(rank);
-  //   useEffect(() => {
-  //     getUserRank();
-  //   }, []);
 
   const getUserRank = () => {
     if (points > 20) {
@@ -59,8 +54,7 @@ function TitleRanks(props) {
     const response = await addRank.json();
     if (response.success && token) {
       getUserRank();
-      console.log(rank);
-      console.log(points);
+
       props.calcPoints(points);
       //   props.onRankLoaded(rank);
       Navigate("/rankings");

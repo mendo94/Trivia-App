@@ -7,7 +7,7 @@ function Timer({ result }) {
   // We need ref in this, because we are dealing
   // with JS setInterval to keep track of it and
   // stop it when needed
-  console.log(result);
+
   const Ref = useRef(null);
 
   // The state for our timer

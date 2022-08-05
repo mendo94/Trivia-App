@@ -27,8 +27,6 @@ function Trivia(props) {
     setShow((current) => !current);
   };
 
-  console.log(props.isAuthenticated);
-
   return (
     <>
       {loading ? (

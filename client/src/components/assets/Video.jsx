@@ -11,7 +11,7 @@ class Video extends Component {
             width="60%"
             height="auto"
             controls="controls"
-            autoplay="true"
+            // autoplay="false"
             style={{ border: "5px solid black" }}
           />
         </div>

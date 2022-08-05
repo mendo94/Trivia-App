@@ -33,7 +33,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function RankingTable({ rankingsData }) {
   const googleToken = localStorage.getItem("username");
-  console.log(googleToken);
 
   return (
     <TableContainer

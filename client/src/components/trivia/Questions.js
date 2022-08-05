@@ -59,7 +59,6 @@ function Questions(props) {
       .then((response) => response.json())
       .then((question) => {
         if (question) {
-          console.log(question);
           props.onQuestionLoaded(question);
         }
       })

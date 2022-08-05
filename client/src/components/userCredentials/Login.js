@@ -55,7 +55,6 @@ function Login(props) {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         if (result.success) {
           // token is saved to local storage
           const token = result.token;
@@ -66,7 +65,6 @@ function Login(props) {
           localStorage.setItem("userId", userId);
           props.onLoadUser(userId);
           props.onLogin(true);
-
           Navigate("/homepage");
         } else {
           alert(!result.success);
