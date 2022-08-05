@@ -17,7 +17,7 @@ import Login from "./components/userCredentials/Login";
 import Trivia from "./components/trivia/Trivia";
 import Rankings from "./components/rankings/Rankings";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import ShareUI from "./components/share/ShareUI";
 import * as actionCreators from "./store/creators/actionCreators";
 import userReducer from "./store/reducer/userReducer";
 import pointReducer from "./store/reducer/pointReducer";
@@ -53,6 +53,7 @@ root.render(
             <Route path="/login" element={<Login />} />
             <Route path="/trivia" element={<Trivia />} />
             <Route path="/rankings" element={<Rankings />} />
+            <Route path="/challenge-friends" element={<ShareUI />} />
           </Routes>
         </BaseLayout>
         <Button />

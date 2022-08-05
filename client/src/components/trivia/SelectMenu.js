@@ -1,12 +1,8 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { CssBaseline } from "@mui/material";
-import { createTheme } from "@mui/material/styles";
-import NativeSelect from "@mui/material/NativeSelect";
 import InputBase from "@mui/material/InputBase";
 import { styled } from "@mui/material/styles";
 
@@ -52,9 +48,13 @@ export default function SelectMenu({ difficulty, handleChange }) {
         alignItems: "center",
       }}
     >
-      <h1>
-        Select your Difficulty... The harder it is, the more points you shall
-        receive.
+      <h1
+        style={{
+          marginTop: "6rem",
+        }}
+      >
+        Select your Difficulty... You have 1 minute to get as many points as you
+        can. Good Luck
       </h1>
       <Box sx={{ minWidth: 120 }}>
         <FormControl variant="standard" sx={{ m: 1, width: 300, mt: 3 }}>
