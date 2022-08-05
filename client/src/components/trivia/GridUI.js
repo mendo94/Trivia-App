@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import Timer from "./Trivia";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import JSConfetti from "js-confetti";
@@ -69,7 +69,6 @@ export default function GridUI({ options, correctAnswer, result, setResult }) {
         <Grid container spacing={2}>
           <Grid item xs={12} style={{ margin: 10 }}>
             <ToastContainer />
-
             <Item
               variant="solid"
               className="buttonColor"

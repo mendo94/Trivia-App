@@ -10,7 +10,7 @@ import axios from "axios";
 import Score from "./Score";
 import Button from "@mui/material/Button";
 import Soundify from "../music/Soundify";
-
+import Timer from "./Countdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMusic } from "@fortawesome/free-solid-svg-icons";
 

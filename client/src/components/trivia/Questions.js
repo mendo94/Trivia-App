@@ -18,7 +18,7 @@ import GridUi from "./GridUI";
 import "./Question.css";
 import { db } from "../../firebase-config";
 import { addDoc, collection } from "firebase/firestore";
-import Timer from "./Timer";
+import Timer from "./Countdown";
 
 function Questions(props) {
   const COLORS = {
@@ -31,25 +31,12 @@ function Questions(props) {
   text-align: center
 
 `;
-  const points = props.points;
-  const isAuthenticated = props.isAuthenticated;
-  const userId = props.userId;
-  const rank = props.rank;
-  const token = localStorage.getItem("jsonwebtoken");
+
   const [difficulty, setDifficulty] = useState("");
-  const [trivia, setTrivia] = useState([]);
   const [show, setShow] = useState(false);
-  const [buttonText, setButtonText] = useState("Begin");
   const Navigate = useNavigate();
   const [result, setResult] = React.useState(0);
   const databaseRef = collection(db, "Rankings");
-
-  function buttonChangeText() {
-    setButtonText("Next");
-    setTimeout(() => {
-      setButtonText("Next");
-    }, 1000);
-  }
 
   const handleShowClick = () => {
     setShow((current) => !current);
@@ -116,11 +103,6 @@ function Questions(props) {
       trivia.correctAnswer,
     ]);
 
-    const shuffler = shuffle([
-      trivia.correctAnswer,
-      ...trivia.incorrectAnswers,
-    ]);
-    console.log(shuffler);
     const content = (
       <React.Fragment>
         <CardContent>
@@ -171,6 +153,7 @@ function Questions(props) {
 
     return (
       <>
+        <Timer result={result} />
         <div>
           <h2>Score: {result}</h2>
 
@@ -216,6 +199,7 @@ function Questions(props) {
           Begin
         </Button>
       )}
+
       <div className="nextBtn">
         {show && (
           <Button

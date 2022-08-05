@@ -10,8 +10,8 @@ import React from "react";
 function BaseLayout(props) {
   return (
     <div>
-      <Logo />
-      {/* {props.isAuthenticated ? <Menu /> : null} */}
+      {/* <Logo /> */}
+      {props.isAuthenticated ? <Logo /> : null}
       <Menu />
       {props.children}
     </div>
