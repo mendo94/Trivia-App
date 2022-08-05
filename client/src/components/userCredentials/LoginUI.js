@@ -15,7 +15,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { auth, provider } from "../../firebase-config"; // update path to your firestore config
+import { auth, provider } from "../../firebase-config";
 
 function Copyright(props) {
   return (
@@ -39,6 +39,7 @@ const theme = createTheme();
 
 function LoginUI(props) {
   const [showPassword, setShowPassword] = React.useState(false);
+  const [user, setUser] = React.useState({});
   const [formData, setFormData] = React.useState({
     email: "",
     password: "",
@@ -60,7 +61,8 @@ function LoginUI(props) {
         const user = result.user;
         // redux action? --> dispatch({ type: SET_USER, user });
         localStorage.setItem("googlewebtoken", token);
-        localStorage.setItem("username", user);
+        localStorage.setItem("username", user.displayName);
+
         props.onLogin(true);
         Navigate("/homepage");
       })
@@ -75,13 +77,19 @@ function LoginUI(props) {
         // ...
       });
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+
+  const handleTextChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
     });
+  };
+
+  const handleSubmit = (e) => {
+    // localStorage.setItem("username", user);
+    // props.onLogin(true);
+    // console.log(user);
+    Navigate("/homepage");
   };
 
   return (
@@ -130,8 +138,9 @@ function LoginUI(props) {
                 required
                 fullWidth
                 id="email"
+                onChange={handleTextChange}
                 label="Email Address"
-                name="email"
+                name="username"
                 autoComplete="email"
                 autoFocus
               />
@@ -154,6 +163,7 @@ function LoginUI(props) {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                onClick={handleSubmit}
               >
                 Sign In
               </Button>

@@ -116,46 +116,6 @@ function Questions(props) {
       trivia.correctAnswer,
     ]);
 
-    const handleChoice1 = () => {
-      if (shuffledAnswers[0] !== trivia.correctAnswer) {
-        console.log("wrong");
-        props.onSubtractPoints(points);
-      } else {
-        props.onAddPoints(points);
-        console.log("correct!!");
-      }
-    };
-
-    const handleChoice2 = () => {
-      if (shuffledAnswers[1] !== trivia.correctAnswer) {
-        console.log("wrong");
-        props.onSubtractPoints(points);
-      } else {
-        props.onAddPoints(points);
-        console.log("correct!!");
-      }
-    };
-
-    const handleChoice3 = () => {
-      if (shuffledAnswers[2] !== trivia.correctAnswer) {
-        console.log("wrong");
-        props.onSubtractPoints(points);
-      } else {
-        props.onAddPoints(points);
-        console.log("correct!!");
-      }
-    };
-
-    const handleChoice4 = () => {
-      if (shuffledAnswers[3] !== trivia.correctAnswer) {
-        console.log("wrong");
-        props.onSubtractPoints(points);
-      } else {
-        props.onAddPoints(points);
-        console.log("correct!!");
-      }
-    };
-
     const shuffler = shuffle([
       trivia.correctAnswer,
       ...trivia.incorrectAnswers,
@@ -172,14 +132,16 @@ function Questions(props) {
             }
             alt="Knight on Horse"
           />
-          <Typography sx={{ fontSize: 14 }} gutterBottom></Typography>
-          <Typography
-            style={{ marginBottom: "1rem" }}
-            variant="h4"
-            component="div"
-          >
-            {trivia.question}
-          </Typography>
+          <div>
+            <Typography sx={{ fontSize: 14 }} gutterBottom></Typography>
+            <Typography
+              style={{ marginBottom: "1rem" }}
+              variant="h4"
+              component="div"
+            >
+              {trivia.question}
+            </Typography>
+          </div>
           <Box>
             <Grid>
               <Grid>
@@ -210,7 +172,7 @@ function Questions(props) {
     return (
       <>
         <div>
-          <h6>Score: {result}</h6>
+          <h2>Score: {result}</h2>
 
           <h5 className="category" key={trivia.id}>
             Category: {trivia.category}

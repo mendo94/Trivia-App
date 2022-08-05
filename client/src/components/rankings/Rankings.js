@@ -39,11 +39,17 @@ function Rankings() {
 
   return (
     <div>
-      <h1 style={{ marginTop: 10, fontFamily: "Almendra" }}>Rankings</h1>
-
       <Button
         variant="contained"
-        style={{ marginTop: 10, fontFamily: "Almendra" }}
+        style={{
+          margin: "1rem",
+          fontFamily: "Almendra",
+
+          backgroundColor: "#374e49",
+          color: "#fff",
+          padding: 10,
+          fontSize: "2rem",
+        }}
         onClick={() => {
           playAgain();
           window.location.reload();
@@ -51,10 +57,12 @@ function Rankings() {
       >
         Play Again
       </Button>
-      <h2 style={{ marginTop: 10, fontFamily: "Almendra" }}>
+      <h2 style={{ margin: 10, fontFamily: "Almendra" }}>
         Your Score: {userRankings}
       </h2>
-
+      <h1 style={{ margin: 10, fontFamily: "Almendra", fontSize: "5rem" }}>
+        Rankings
+      </h1>
       <div style={{ margin: 20 }}>
         <RankingTable rankingsData={rankingsData} />
       </div>
