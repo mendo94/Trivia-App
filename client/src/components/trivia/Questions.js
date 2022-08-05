@@ -18,7 +18,7 @@ import GridUi from "./GridUI";
 import "./Question.css";
 import { db } from "../../firebase-config";
 import { addDoc, collection } from "firebase/firestore";
-import Timer from "./Countdown";
+import Timer from "./Timer";
 
 function Questions(props) {
   const COLORS = {

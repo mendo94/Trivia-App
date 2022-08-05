@@ -67,7 +67,3 @@ export default function RankingTable({ rankingsData }) {
     </TableContainer>
   );
 }
-
-//update top ranked person
-//update google sign in
-//fix timer

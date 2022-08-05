@@ -1,86 +1,46 @@
-@import url("https://fonts.googleapis.com/css?family=Lato");
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-
-  min-height: 100vh;
-  font-family: "Lato", sans-serif;
-  margin: 0;
-}
-
-h1 {
-  letter-spacing: 2px;
+#countdown {
+  position: fixed;
+  margin: auto;
+  margin-top: 100px;
+  height: 40px;
+  width: 40px;
   text-align: center;
-  text-transform: uppercase;
 }
 
-.countdown-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.countdown-item {
-  color: #111;
-  font-size: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  line-height: 30px;
-  margin: 10px;
-  padding-top: 10px;
-  position: relative;
-  width: 100px;
-  height: 100px;
-}
-
-.countdown-item span {
-  color: #333;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.countdown-svg {
+.svg {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100px;
-  height: 100px;
+  right: -1rem;
+  width: 40px;
+  height: 40px;
+  transform: rotateY(-180deg) rotateZ(-90deg);
 }
 
-footer {
-  background-color: #222;
-  color: #fff;
-  font-size: 14px;
-  bottom: 0;
-  position: fixed;
-  left: 0;
-  right: 0;
-  text-align: center;
-  z-index: 999;
+svg circle {
+  stroke-dasharray: 113px;
+  stroke-dashoffset: 0px;
+  stroke-linecap: round;
+  stroke-width: 2px;
+  stroke: white;
+  fill: none;
+  animation: countdown 60s linear infinite forwards;
+
+  background-size: contain;
 }
 
-footer p {
-  margin: 10px 0;
+@keyframes countdown {
+  from {
+    stroke-dashoffset: 0px;
+  }
+  to {
+    stroke-dashoffset: 113px;
+  }
 }
 
-footer i {
-  color: red;
+.base-timer {
+  margin-top: 2rem;
 }
 
-footer a {
-  color: #3c97bf;
-  text-decoration: none;
+.timer {
+  font-size: 4rem;
 }
