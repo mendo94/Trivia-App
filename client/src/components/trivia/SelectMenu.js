@@ -57,10 +57,16 @@ export default function SelectMenu({ difficulty, handleChange }) {
         receive.
       </h1>
       <Box sx={{ minWidth: 120 }}>
+        {/* <InputLabel htmlFor="demo-customized-select-native">
+          Difficulty
+        </InputLabel> */}
         <FormControl variant="standard" sx={{ m: 1, width: 300, mt: 3 }}>
-          <InputLabel htmlFor="demo-customized-select-native">
-            Difficulty
-          </InputLabel>
+          <label
+            style={{ fontFamily: "Almendra", fontSize: "2rem" }}
+            htmlFor="demo-customized-select-native"
+          >
+            Select Difficulty
+          </label>
           <Select
             MenuProps={{
               sx: {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Timer from "./Timer";
+
 import Questions from "./Questions";
 import TitleRanks from "../rankings/TitleRanks";
 import LoadingScreen from "../loader/LoadingScreen";
@@ -35,21 +35,25 @@ function Trivia(props) {
         <LoadingScreen />
       ) : (
         <div>
-          <Timer />
-
           <Questions />
           {!show && (
             <Button
-              style={{ margin: 20 }}
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                margin: 2,
+                backgroundColor: "#374e49",
+                color: "#fff",
+                padding: 10,
+                fontSize: "2rem",
+              }}
               variant="contained"
               onClick={handleShowClick}
             >
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ padding: 5 }}>
                 <span>
                   <FontAwesomeIcon icon={faMusic} />
                 </span>
-                {"             "}
-                <span>Listen</span>
               </div>
             </Button>
           )}

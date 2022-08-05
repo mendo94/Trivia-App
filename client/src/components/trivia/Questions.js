@@ -18,7 +18,7 @@ import GridUi from "./GridUI";
 import "./Question.css";
 import { db } from "../../firebase-config";
 import { addDoc, collection } from "firebase/firestore";
-import { Icon } from "@mui/material";
+import Timer from "./Timer";
 
 function Questions(props) {
   const COLORS = {
@@ -166,7 +166,7 @@ function Questions(props) {
         <CardContent>
           <CardMedia
             component="img"
-            height="100vh"
+            height="450vh"
             image={
               "https://images.unsplash.com/photo-1600924779117-927b4f81457d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
             }

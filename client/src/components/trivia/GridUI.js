@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-
+import Timer from "./Trivia";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import JSConfetti from "js-confetti";
@@ -52,13 +52,13 @@ export default function GridUI({ options, correctAnswer, result, setResult }) {
       });
       setResult(result + 10);
       toast.success("Correct!", {
-        autoClose: 2000,
+        autoClose: 3000,
       });
     } else if (correctAnswer !== options) {
       setOpen(true);
       setResult(result - 10);
       toast.error(`Wrong, my Lord. The correct answer was ${correctAnswer}`, {
-        autoClose: 2000,
+        autoClose: 3000,
       });
     }
   };
