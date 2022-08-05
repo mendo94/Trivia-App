@@ -21,7 +21,7 @@ button {
   padding: 0;
   background: transparent;
   font-size: 1.6rem;
-  color: #666;
+  color: #fff;
 }
 
 .share-button-wrapper {
@@ -66,8 +66,8 @@ button {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.7px;
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 1.5rem;
+  color: #fff;
 }
 
 .modal-body {
@@ -113,7 +113,7 @@ button {
   border-radius: 4px;
   text-transform: lowercase;
   letter-spacing: 2px;
-  font-size: 1rem;
+  font-size: 1.3rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -125,4 +125,9 @@ button {
   /* color: #fff; */
   background: #374e49;
   font-weight: 600;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
 }

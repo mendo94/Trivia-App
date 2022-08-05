@@ -36,13 +36,25 @@ export default function RankingTable({ rankingsData }) {
   console.log(googleToken);
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 150 }} aria-label="customized table">
+    <TableContainer
+      style={{ maxWidth: "100rem", marginLeft: "15rem" }}
+      component={Paper}
+    >
+      <Table
+        sx={{ minWidth: 150, maxWidth: "100rem" }}
+        aria-label="customized table"
+      >
         <TableHead>
           <TableRow>
-            <StyledTableCell>Nobleman</StyledTableCell>
-            <StyledTableCell>Difficulty</StyledTableCell>
-            <StyledTableCell>Result</StyledTableCell>
+            <StyledTableCell style={{ fontSize: "2rem" }}>
+              Nobleman
+            </StyledTableCell>
+            <StyledTableCell style={{ fontSize: "2rem" }}>
+              Difficulty
+            </StyledTableCell>
+            <StyledTableCell style={{ fontSize: "2rem" }}>
+              Score
+            </StyledTableCell>
           </TableRow>
         </TableHead>
         {rankingsData.map((player) => {
