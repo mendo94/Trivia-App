@@ -1,30 +1,10 @@
-# Trivia-App
+# Conquer The Crown
 
-User Story: As a user, I want to be able to log into my account and answer trivia questions, while keeping track of how many I got right.
 
-Requires:
 
-React
-Express JSON API
+<div id="header" align="center">
+  <h1>Help us defeat Genghis Khan and his Mongol Empire</h2>
+</div>
 
-Optional:
+https://user-images.githubusercontent.com/94413237/183111696-14b6e5fd-e72e-4825-82bb-c1c0664c14d1.mp4
 
-Redux or Context
-Third party API
-
-Trivia Level 1
-Save a user to a database.
-Create a fetch call for questions
-Design layout
-Display questions and answers on UI
-Possible APIs
-Trivia App API
-Travel Planner Level 2
-All of Level 1
-Add User Authentication
-Shuffle trivia questions in randomized order
-If selected answer is right, add points to user's score
-Travel Planner Level 3
-All of Level 2
-Display top 10 users with their highscores on leaderboard
-Make app sharable
