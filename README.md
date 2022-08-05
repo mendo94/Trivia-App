@@ -5,7 +5,7 @@
 </div>
 
 <div id="header" align="center">
-  <img src="/public/logo.png" width="400"/>
+  <img src="client/public/logo.png" width="400"/>
 </div>
 
 https://user-images.githubusercontent.com/94413237/183111696-14b6e5fd-e72e-4825-82bb-c1c0664c14d1.mp4
