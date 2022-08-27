@@ -58,10 +58,7 @@ function LoginUI(props) {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        console.log(credential);
-        console.log(token);
-        console.log(result);
-        // The signed-in user info.
+
         const user = result.user;
         // redux action? --> dispatch({ type: SET_USER, user });
         localStorage.setItem("googlewebtoken", token);
@@ -95,7 +92,6 @@ function LoginUI(props) {
     }
     // localStorage.setItem("username", user);
     // props.onLogin(true);
-    // console.log(user);
   };
 
   return (

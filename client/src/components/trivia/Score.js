@@ -12,7 +12,7 @@
 //   const updateScore = () => {
 //     const token = localStorage.getItem("jsonwebtoken");
 //     const userId = localStorage.getItem("userId");
-//     console.log(userId);
+
 //     if (token && userId && props.isAuthenticated) {
 //       fetch(`http://localhost:2000/trivia/${userId}`, {
 //         method: "GET",

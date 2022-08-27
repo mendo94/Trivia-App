@@ -205,6 +205,7 @@ function Questions(props) {
             variant="contained"
             style={{
               margin: 5,
+
               backgroundColor: "#374e49",
               color: "#fff",
               padding: 10,
