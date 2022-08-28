@@ -10,7 +10,6 @@ function Rankings() {
   const { state } = useLocation();
   const [userRankings, setUserRankings] = useState(0);
   const Navigate = useNavigate();
-  const [result, setResult] = useState(0);
   const databaseRef = collection(db, "Rankings");
   const [rankingsData, setRankingsData] = useState([]);
 
